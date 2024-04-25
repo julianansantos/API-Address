@@ -7,6 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,6 +20,9 @@ public class User implements UserDetails{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(unique = true)
+    private String name;
+    private String password;
 
     public Long getId() {
         return id;
@@ -26,8 +30,6 @@ public class User implements UserDetails{
     public void setId(Long id) {
         this.id = id;
     }
-    private String name;
-    private String password;
 
     public String getName() {
         return name;
