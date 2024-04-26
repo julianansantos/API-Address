@@ -6,15 +6,19 @@ import java.util.Date;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 
 @Entity
+@Table
 public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -34,6 +38,7 @@ public class Address {
     private Instant updatedAt;
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     private User user;
 
     public Long getId() {
@@ -43,13 +48,16 @@ public class Address {
     public void setId(Long id) {
         this.id = id;
     }
-    
+
     public User getUser() {
         return user;
     }
 
     public void setUser(User user) {
         this.user = user;
+    }
+    public Address() {
+        super();
     }
 
     public Address(String street, String city, String state, String country, String zipCode) {
