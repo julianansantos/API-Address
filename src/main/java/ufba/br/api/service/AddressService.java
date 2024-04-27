@@ -40,4 +40,12 @@ public class AddressService {
     public Address store(Address entity) {
         return addressRepository.save(entity);
     }
+
+    public boolean delete(Long id) {
+        if (addressRepository.existsById(id)) {
+            addressRepository.deleteById(id);
+            return true;
+        }
+        return false;
+    }
 }

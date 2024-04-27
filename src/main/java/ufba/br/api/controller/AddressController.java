@@ -3,6 +3,8 @@ package ufba.br.api.controller;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
+
+import ufba.br.api.exceptions.UserNotAllowedException;
 import ufba.br.api.form.PaginationResponse;
 import ufba.br.api.model.Address;
 import ufba.br.api.model.User;
@@ -17,12 +19,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
 @RequestMapping("/address")
@@ -41,7 +44,7 @@ public class AddressController {
         UserDetailsServiceImpl userDetailsServiceImpl = new UserDetailsServiceImpl(userRepository);
         User user = (User) userDetailsServiceImpl.loadUserByUsername(authentication.getName());
         if (!(user instanceof User)) {
-            throw new UsernameNotFoundException("User not found");
+            throw new UserNotAllowedException();
         }
         return new ResponseEntity<>(addressService.getAddresses(user, page, size), HttpStatus.OK);
     }
@@ -52,7 +55,7 @@ public class AddressController {
         UserDetailsServiceImpl userDetailsServiceImpl = new UserDetailsServiceImpl(userRepository);
         User user = (User) userDetailsServiceImpl.loadUserByUsername(authentication.getName());
         if (!(user instanceof User)) {
-            throw new UsernameNotFoundException("User not found");
+            throw new UserNotAllowedException();
         }
         entity.setUser(user);
         addressService.store(entity);
@@ -62,6 +65,19 @@ public class AddressController {
         response.put("id", entity.getId());
         return ResponseEntity.ok(response);
 
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Object> delete(Authentication authentication, @PathVariable("id") Long id) {
+        UserDetailsServiceImpl userDetailsServiceImpl = new UserDetailsServiceImpl(userRepository);
+        User user = (User) userDetailsServiceImpl.loadUserByUsername(authentication.getName());
+        if (!(user instanceof User)) {
+            throw new UserNotAllowedException();
+        }
+        if (addressService.delete(id)) {
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.notFound().build();
     }
 
 }

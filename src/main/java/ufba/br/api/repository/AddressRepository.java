@@ -11,5 +11,7 @@ import ufba.br.api.model.User;
 public interface AddressRepository extends PagingAndSortingRepository<Address, Long> {
     Address save(Address entity);
     Page<Address> findAllByUser(User user, Pageable pageable);
+    void deleteById(Long id);
+    boolean existsById(Long id);
 
 }
