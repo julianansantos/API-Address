@@ -1,0 +1,12 @@
+<div class="parent">
+    <div class="login-container">
+        <form class="login-form" (submit)="onLogin()">
+            <input type="text" placeholder="Username" name="username" class="input-field" [(ngModel)]="loginObject.username" required>
+            <input type="password" placeholder="Password" name="password" class="input-field" [(ngModel)]="loginObject.password" required>
+            <div class="button-container">
+                <button class="register-button">Registrar</button>
+                <button class="login-button" type="submit" >Login</button>
+            </div>
+        </form>
+    </div>
+</div>
