@@ -4,8 +4,8 @@
             <input type="text" placeholder="Username" name="username" class="input-field" [(ngModel)]="loginObject.username" required>
             <input type="password" placeholder="Password" name="password" class="input-field" [(ngModel)]="loginObject.password" required>
             <div class="button-container">
-                <button class="register-button">Registrar</button>
-                <button class="login-button" type="submit" >Login</button>
+                <button mat-stroked-button color="accent" class="register-button">Registrar</button>
+                <button mat-flat-button color="primary" class="login-button" type="submit" >Login</button>
             </div>
         </form>
     </div>
