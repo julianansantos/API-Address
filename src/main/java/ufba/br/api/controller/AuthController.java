@@ -19,6 +19,9 @@ public class AuthController {
     @PostMapping("auth")
     public Map<String, String> authenticate(
         Authentication authentication) {
+        if (authentication == null) {
+            throw new IllegalArgumentException("Authentication is required");
+        }
         String token = authenticationService.authenticate(authentication);
         return Map.of("token", token);
     }
