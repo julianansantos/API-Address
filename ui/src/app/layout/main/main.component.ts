@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -10,8 +10,16 @@ import { AuthService } from '../../services/auth.service';
   styleUrl: './main.component.scss'
 })
 export class MainComponent {
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private router: Router) { }
   logout() {
     this.authService.logout();
+  }
+
+  goHome() {
+    this.router.navigateByUrl('/home');
+  }
+
+  goRegisterAddress() {
+    this.router.navigateByUrl('/new-address');
   }
 }
