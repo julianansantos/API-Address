@@ -39,7 +39,7 @@ public class AddressController {
     @GetMapping
     public ResponseEntity<PaginationResponse<Address>> index(Authentication authentication,
             @RequestParam(value = "page", defaultValue = "0", required = false) int page,
-            @RequestParam(value = "size", defaultValue = "10", required = false) int size) {
+            @RequestParam(value = "size", defaultValue = "5", required = false) int size) {
 
         UserDetailsServiceImpl userDetailsServiceImpl = new UserDetailsServiceImpl(userRepository);
         User user = (User) userDetailsServiceImpl.loadUserByUsername(authentication.getName());

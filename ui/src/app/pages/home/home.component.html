@@ -1,4 +1,4 @@
-<mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+<mat-table [dataSource]="pagination.content" class="mat-elevation-z8">
 
     <!--- Note that these columns can be defined in any order.
           The actual rendered columns are set as a property on the row definition" -->
@@ -38,7 +38,7 @@
             <button mat-icon-button aria-label="Example icon button with a vertical three dot icon">
                 <mat-icon color="primary">edit</mat-icon>
             </button>
-            <button mat-icon-button aria-label="Example icon button with a vertical three dot icon">
+            <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" (click)="deleteAddress(row.id)">
                 <mat-icon color="warn">delete</mat-icon>
             </button>
         </mat-cell>
@@ -47,3 +47,15 @@
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
   <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
 </mat-table>
+<mat-paginator #paginator
+               class="demo-paginator"
+               (page)="handlePageEvent($event)"
+               [length]="pagination.totalElements"
+               [pageSize]="pagination.pageSize"
+               [disabled]="false"
+               [showFirstLastButtons]="false"
+               [pageSizeOptions]="[]"
+               [hidePageSize]="true"
+               [pageIndex]="pagination.page"
+               aria-label="Select page">
+</mat-paginator>
