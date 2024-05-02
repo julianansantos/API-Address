@@ -1,1 +1,49 @@
-<p>home works!</p>
+<mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="street">
+        <mat-header-cell *matHeaderCellDef> Rua </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.street}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="number">
+        <mat-header-cell *matHeaderCellDef> Número </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.number}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="complement">
+        <mat-header-cell *matHeaderCellDef> Complemento </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.complement}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="city">
+        <mat-header-cell *matHeaderCellDef> Cidade </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.city}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="state">
+        <mat-header-cell *matHeaderCellDef> Estado </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.state}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="country">
+        <mat-header-cell *matHeaderCellDef> País </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.country}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="zipCode">
+        <mat-header-cell *matHeaderCellDef> CEP </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.zipCode}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef> Ações </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+            <button mat-icon-button aria-label="Example icon button with a vertical three dot icon">
+                <mat-icon color="primary">edit</mat-icon>
+            </button>
+            <button mat-icon-button aria-label="Example icon button with a vertical three dot icon">
+                <mat-icon color="warn">delete</mat-icon>
+            </button>
+        </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>

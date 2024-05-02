@@ -6,6 +6,7 @@ import { importProvidersFrom } from '@angular/core';
 import { routes } from './app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { RetryInterceptor } from './interceptors/RetryInterceptor';
+import { AuthInterceptor } from './interceptors/AuthInterceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -14,6 +15,11 @@ export const appConfig: ApplicationConfig = {
     {
       provide: HTTP_INTERCEPTORS,
       useClass: RetryInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
       multi: true,
     }
   ],
