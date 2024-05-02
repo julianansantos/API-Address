@@ -1,7 +1,6 @@
 package ufba.br.api.model;
 
 import java.time.Instant;
-import java.util.Date;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -32,6 +31,10 @@ public class Address {
     @NotBlank(message = "name cannot be blank")
     private String country;
     private String zipCode;
+    private String complement;
+    private int number;
+    
+
     @CreationTimestamp
     private Instant createdAt;
     @UpdateTimestamp
@@ -40,6 +43,22 @@ public class Address {
     @JoinColumn(name = "user_id")
     @JsonIgnore
     private User user;
+
+    public String getComplement() {
+        return complement;
+    }
+
+    public void setComplement(String complement) {
+        this.complement = complement;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
 
     public Long getId() {
         return id;
