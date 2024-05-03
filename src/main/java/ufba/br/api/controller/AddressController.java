@@ -3,7 +3,7 @@ package ufba.br.api.controller;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
-
+import ufba.br.api.exceptions.AddresNotFoundException;
 import ufba.br.api.exceptions.UserNotAllowedException;
 import ufba.br.api.form.PaginationResponse;
 import ufba.br.api.model.Address;
@@ -16,6 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -26,6 +27,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+
 
 @RestController
 @RequestMapping("/address")
@@ -49,6 +52,20 @@ public class AddressController {
         return new ResponseEntity<>(addressService.getAddresses(user, page, size), HttpStatus.OK);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Address> show(Authentication authentication, @PathVariable("id") Long id) {
+        UserDetailsServiceImpl userDetailsServiceImpl = new UserDetailsServiceImpl(userRepository);
+        User user = (User) userDetailsServiceImpl.loadUserByUsername(authentication.getName());
+        if (!(user instanceof User)) {
+            throw new UserNotAllowedException();
+        }
+        Address address = addressService.getAddress(user, id);
+        if (address == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(address);
+    }
+
     @PostMapping
     public ResponseEntity<Object> store(Authentication authentication, @RequestBody @Valid Address entity) {
         // get current logged user
@@ -65,6 +82,26 @@ public class AddressController {
         response.put("id", entity.getId());
         return ResponseEntity.ok(response);
 
+    }
+
+    @PutMapping("/{id}")
+    public Address update(Authentication authentication, @PathVariable("id") Long id, @RequestBody Address entity) {
+        UserDetailsServiceImpl userDetailsServiceImpl = new UserDetailsServiceImpl(userRepository);
+        User user = (User) userDetailsServiceImpl.loadUserByUsername(authentication.getName());
+        if (!(user instanceof User)) {
+            throw new UserNotAllowedException();
+        }
+        Address address = addressService.getAddress(user, id);
+        if (address == null) {
+            throw new AddresNotFoundException();
+        }
+        address.setCity(entity.getCity());
+        address.setCountry(entity.getCountry());
+        address.setNumber(entity.getNumber());
+        address.setZipCode(entity.getZipCode());
+        address.setState(entity.getState());
+        address.setStreet(entity.getStreet());
+        return addressService.store(address);
     }
 
     @DeleteMapping("/{id}")

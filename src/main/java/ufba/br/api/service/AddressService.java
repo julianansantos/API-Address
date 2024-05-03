@@ -37,6 +37,10 @@ public class AddressService {
         return response;
     }
 
+    public Address getAddress(User user, Long id) {
+        return addressRepository.findByIdAndUser(id, user);
+    }
+
     public Address store(Address entity) {
         return addressRepository.save(entity);
     }
