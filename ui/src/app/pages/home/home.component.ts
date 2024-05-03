@@ -10,6 +10,7 @@ import { PageEvent, MatPaginatorModule } from '@angular/material/paginator';
 import { JsonPipe } from '@angular/common';
 import { catchError, throwError } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -29,7 +30,7 @@ export class HomeComponent {
     totalPages: 0
   };
 
-  constructor(private httpClient: HttpClient, private authService: AuthService, private _snackBar: MatSnackBar) { }
+  constructor(private httpClient: HttpClient, private router: Router, private authService: AuthService, private _snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.paginate();
@@ -67,6 +68,10 @@ export class HomeComponent {
     })).subscribe(() => {
       this.paginate();
     });
+  }
+
+  edit(id: number) {
+    this.router.navigateByUrl('/address/edit/' + id);
   }
 }
 

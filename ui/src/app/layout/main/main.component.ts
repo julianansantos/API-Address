@@ -20,6 +20,6 @@ export class MainComponent {
   }
 
   goRegisterAddress() {
-    this.router.navigateByUrl('/new-address');
+    this.router.navigateByUrl('/address/new');
   }
 }

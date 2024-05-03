@@ -3,6 +3,7 @@ import { LoginComponent } from './pages/auth/login/login.component';
 import { MainComponent } from './layout/main/main.component';
 import { HomeComponent } from './pages/home/home.component';
 import { CreateComponent } from './pages/address/create/create.component';
+import { EditComponent } from './pages/address/edit/edit.component';
 
 export const routes: Routes = [
     {
@@ -23,8 +24,12 @@ export const routes: Routes = [
                 component: HomeComponent
             },
             {
-                path: 'new-address',
+                path: 'address/new',
                 component: CreateComponent
+            },
+            {
+                path: 'address/edit/:id',
+                component: EditComponent
             }
         ]
     }

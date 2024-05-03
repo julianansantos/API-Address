@@ -35,7 +35,7 @@
     <ng-container matColumnDef="actions">
         <mat-header-cell *matHeaderCellDef> Ações </mat-header-cell>
         <mat-cell *matCellDef="let row">
-            <button mat-icon-button aria-label="Example icon button with a vertical three dot icon">
+            <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" (click)="edit(row.id)">
                 <mat-icon color="primary">edit</mat-icon>
             </button>
             <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" (click)="deleteAddress(row.id)">
@@ -47,15 +47,12 @@
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
   <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
 </mat-table>
-<mat-paginator #paginator
-               class="demo-paginator"
-               (page)="handlePageEvent($event)"
+<mat-paginator (page)="handlePageEvent($event)"
                [length]="pagination.totalElements"
                [pageSize]="pagination.pageSize"
                [disabled]="false"
                [showFirstLastButtons]="false"
                [pageSizeOptions]="[]"
                [hidePageSize]="true"
-               [pageIndex]="pagination.page"
-               aria-label="Select page">
+               [pageIndex]="pagination.page">
 </mat-paginator>

@@ -9,8 +9,7 @@ import { Router } from '@angular/router';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { catchError, throwError } from 'rxjs';
-import { AddressViaCEP } from '../../../interface/AddressViaCEP';
-
+import { AddressFormComponent } from '../../../components/address-form/address-form.component';
 @Component({
   selector: 'app-create',
   standalone: true,
@@ -19,7 +18,8 @@ import { AddressViaCEP } from '../../../interface/AddressViaCEP';
     MatButtonModule,
     FormsModule,
     MatInputModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    AddressFormComponent
   ],
   templateUrl: './create.component.html',
   styleUrl: './create.component.scss'
@@ -49,17 +49,9 @@ export class CreateComponent {
         return throwError(() => error);
       }))
       .subscribe(() => {
+        this._snackBar.open('Endereço criado com sucesso', 'Fechar')
         this.goHome();
       });
   }
 
-  findViaCEP() {
-    this.httpClient.get<AddressViaCEP>('https://viacep.com.br/ws/' + this.address.zipCode + '/json/')
-      .subscribe((response: any) => {
-        this.address.street = response.logradouro;
-        this.address.complement = response.complemento;
-        this.address.city = response.localidade;
-        this.address.state = response.uf;
-      });
-  }
 }
