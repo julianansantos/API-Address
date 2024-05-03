@@ -28,11 +28,10 @@ export class LoginComponent {
   onLogin() {
     this.authService.login(this.loginObject.username, this.loginObject.password)
       .pipe(catchError((error: HttpErrorResponse) => {
-        console.error(error);
         this._snackBar.open('Usuário ou senha inválidos', 'Fechar', {
           duration: 5000,
         });
-        return throwError('Usuário ou senha inválidos');
+        return throwError(() => error);
 
       }))
       .subscribe(response => {
