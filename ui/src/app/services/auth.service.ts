@@ -15,6 +15,8 @@ export class AuthService {
     return this.httpClient.post<{ token: string }>('api/auth', null, {
       headers: {
         authorization: 'Basic ' + btoa(username + ':' + password),
+        // to not open the browser's default login popup
+        'X-Requested-With': 'XMLHttpRequest',
         'Content-Type': 'application/json',
       }
     }).pipe(tap(response => {
