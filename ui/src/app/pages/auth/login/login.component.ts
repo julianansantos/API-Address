@@ -7,11 +7,21 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { catchError, throwError } from 'rxjs';
 import { AuthService } from '../../../services/auth.service';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
 export const ERROR_COUNT = new HttpContextToken(() => 0);
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, MatButtonModule],
+  imports: [
+    FormsModule,
+    MatButtonModule,
+    MatButtonModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatIconModule
+  ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
@@ -22,15 +32,13 @@ export class LoginComponent {
   };
   authenticated = false;
   loading = false;
-
+  hide = true;
   constructor(private router: Router, private http: HttpClient, private _snackBar: MatSnackBar, private authService: AuthService) { }
 
   onLogin() {
     this.authService.login(this.loginObject.username, this.loginObject.password)
       .pipe(catchError((error: HttpErrorResponse) => {
-        this._snackBar.open('Usuário ou senha inválidos', 'Fechar', {
-          duration: 5000,
-        });
+        this._snackBar.open('Usuário e/ou senha inválidos', 'Fechar');
         return throwError(() => error);
 
       }))
@@ -44,6 +52,10 @@ export class LoginComponent {
       .add(() => {
         this.loading = false;
       })
+  }
+
+  goRegister() {
+    this.router.navigateByUrl('/register');
   }
 
 }

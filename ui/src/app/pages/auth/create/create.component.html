@@ -1,0 +1,18 @@
+<div class="container">
+    <form (submit)="register()" class="form">
+        <mat-form-field class="field">
+            <mat-label>Usuário</mat-label>
+            <input matInput placeholder="Username" name="username" class="input-field" [(ngModel)]="loginObject.username"
+                required>
+        </mat-form-field>
+        <mat-form-field class="field">
+            <mat-label>Senha</mat-label>
+            <input matInput type="password" placeholder="Password" name="password" class="input-field"
+                [(ngModel)]="loginObject.password" required>
+        </mat-form-field>
+        <div class="button-container">
+            <button mat-flat-button color="primary" class="login-button" type="submit">Registrar</button>
+            <button mat-stroked-button color="accent" class="register-button" (click)="goBack()" type="button">Voltar</button>
+        </div>
+    </form>
+</div>

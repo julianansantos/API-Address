@@ -9,7 +9,7 @@ export class AuthInterceptor implements HttpInterceptor {
   constructor(private authService: AuthService, private router: Router) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    if (req.url === 'api/auth') {
+    if (req.url === 'api/auth' || req.url === 'api/auth/register') {
       return next.handle(req);
     }
     const token = this.authService.getToken();
