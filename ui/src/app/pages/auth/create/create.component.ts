@@ -4,7 +4,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 import { catchError, throwError } from 'rxjs';
-import { Login } from '../../../interface/Login';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
@@ -26,13 +25,18 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './create.component.scss'
 })
 export class CreateComponent {
-  loginObject: Login = {
+  loginObject = {
     username: '',
-    password: ''
+    password: '',
+    passwordConfirm: ''
   };
   constructor(private router: Router, private _snackBar: MatSnackBar, private authService: AuthService) { }
 
   register() {
+    if (this.loginObject.password !== this.loginObject.passwordConfirm) {
+      this._snackBar.open('As senhas não conferem', 'Fechar');
+      return;
+    }
     this.authService.register(this.loginObject.username, this.loginObject.password)
       .pipe(catchError((error: HttpErrorResponse) => {
         this._snackBar.open('Não foi possível registrar esse usuário', 'Fechar');
