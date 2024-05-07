@@ -6,10 +6,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { AddressForm } from '../../../interface/AddressForm';
 import { Router } from '@angular/router';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { catchError, throwError } from 'rxjs';
 import { AddressFormComponent } from '../../../components/address-form/address-form.component';
+import { AddressService } from '../../../services/address.service';
 @Component({
   selector: 'app-create',
   standalone: true,
@@ -34,14 +35,14 @@ export class CreateComponent {
     zipCode: '',
     country: ''
   }
-  constructor(private router: Router, private httpClient: HttpClient, private _snackBar: MatSnackBar) { }
+  constructor(private router: Router, private addressService: AddressService, private _snackBar: MatSnackBar) { }
 
   goHome() {
     this.router.navigateByUrl('/home');
   }
 
   onSubmit() {
-    this.httpClient.post('api/address', this.address)
+    this.addressService.create(this.address)
       .pipe(catchError((error: HttpErrorResponse) => {
         this._snackBar.open('Erro ao salvar o endereço', 'Fechar', {
           duration: 5000

@@ -1,10 +1,11 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Input, numberAttribute } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { catchError, firstValueFrom, throwError } from 'rxjs';
 import { AddressForm } from '../../../interface/AddressForm';
 import { AddressFormComponent } from '../../../components/address-form/address-form.component';
+import { AddressService } from '../../../services/address.service';
 
 @Component({
   selector: 'app-edit',
@@ -26,7 +27,7 @@ export class EditComponent {
     country: ''
   }
   @Input({ transform: numberAttribute }) id!: number;
-  constructor(private router: Router, private httpClient: HttpClient, private _snackBar: MatSnackBar) {
+  constructor(private router: Router, private _snackBar: MatSnackBar, private addressService: AddressService) {
   }
 
   ngOnInit() {
@@ -37,7 +38,7 @@ export class EditComponent {
 
 
   async getAddress(id: number) {
-    const source$ = this.httpClient.get<AddressForm>('api/address/' + id).pipe(
+    const source$ = this.addressService.get(id).pipe(
       catchError((error: HttpErrorResponse) => {
         this._snackBar.open('Erro ao carregar o endereço', 'Fechar', {
           duration: 5000
@@ -53,7 +54,7 @@ export class EditComponent {
   }
 
   onSubmit() {
-    this.httpClient.put(`api/address/${this.id}`, this.address$)
+    this.addressService.update(this.id, this.address$)
       .pipe(catchError((error: HttpErrorResponse) => {
         this._snackBar.open('Erro ao salvar o endereço', 'Fechar', {
           duration: 5000

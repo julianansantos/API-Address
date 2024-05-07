@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Login } from '../../../interface/Login';
 import { Router } from '@angular/router';
-import { HttpClient, HttpContext, HttpContextToken, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpContextToken, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { catchError, throwError } from 'rxjs';
@@ -33,7 +33,7 @@ export class LoginComponent {
   authenticated = false;
   loading = false;
   hide = true;
-  constructor(private router: Router, private http: HttpClient, private _snackBar: MatSnackBar, private authService: AuthService) { }
+  constructor(private router: Router, private _snackBar: MatSnackBar, private authService: AuthService) { }
 
   onLogin() {
     this.authService.login(this.loginObject.username, this.loginObject.password)

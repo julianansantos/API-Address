@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -30,7 +30,7 @@ export class CreateComponent {
     username: '',
     password: ''
   };
-  constructor(private router: Router, private http: HttpClient, private _snackBar: MatSnackBar, private authService: AuthService) { }
+  constructor(private router: Router, private _snackBar: MatSnackBar, private authService: AuthService) { }
 
   register() {
     this.authService.register(this.loginObject.username, this.loginObject.password)

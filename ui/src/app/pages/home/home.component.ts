@@ -11,6 +11,7 @@ import { JsonPipe } from '@angular/common';
 import { catchError, throwError } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { AddressService } from '../../services/address.service';
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -30,7 +31,7 @@ export class HomeComponent {
     totalPages: 0
   };
 
-  constructor(private httpClient: HttpClient, private router: Router, private authService: AuthService, private _snackBar: MatSnackBar) { }
+  constructor(private addressService: AddressService, private router: Router, private authService: AuthService, private _snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.paginate();
@@ -42,11 +43,7 @@ export class HomeComponent {
   }
 
   paginate() {
-    this.httpClient.get<Pagination<Address>>('api/address', {
-      params: {
-        page: this.pagination.page
-      }
-    }).subscribe(response => {
+    this.addressService.paginate(this.pagination.page).subscribe(response => {
       this.pagination.content = response.content;
       this.pagination.totalElements = response.totalElements;
       this.pagination.totalPages = response.totalPages;
@@ -57,7 +54,7 @@ export class HomeComponent {
   }
 
   deleteAddress(id: number) {
-    this.httpClient.delete('api/address/' + id).pipe(catchError((error: HttpErrorResponse) => {
+    this.addressService.delete(id).pipe(catchError((error: HttpErrorResponse) => {
       if (error.status === 404) {
         this._snackBar.open('Endereço não existe. Atualize a página', 'Fechar');
       } else {
