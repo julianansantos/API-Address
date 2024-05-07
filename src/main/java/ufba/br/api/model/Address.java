@@ -15,6 +15,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 
 @Entity
 @Table
@@ -30,6 +31,7 @@ public class Address {
     private String state;
     @NotBlank(message = "name cannot be blank")
     private String country;
+    @Pattern(regexp = "^[0-9]{5}-[0-9]{3}$", message = "zip code must be in the format XXXXX-XXX")
     private String zipCode;
     private String complement;
     private int number;

@@ -32,8 +32,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 @RestController
 @RequestMapping("/address")
 public class AddressController {
-    @Autowired
-    private UserRepository userRepository;
 
     @Autowired
     private AddressService addressService;
@@ -43,7 +41,7 @@ public class AddressController {
             @RequestParam(value = "page", defaultValue = "0", required = false) int page,
             @RequestParam(value = "size", defaultValue = "5", required = false) int size) {
 
-        UserDetailsServiceImpl userDetailsServiceImpl = new UserDetailsServiceImpl(userRepository);
+        UserDetailsServiceImpl userDetailsServiceImpl = new UserDetailsServiceImpl();
         User user = (User) userDetailsServiceImpl.loadUserByUsername(authentication.getName());
         if (!(user instanceof User)) {
             throw new UserNotAllowedException();
@@ -53,7 +51,7 @@ public class AddressController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Address> show(Authentication authentication, @PathVariable("id") Long id) {
-        UserDetailsServiceImpl userDetailsServiceImpl = new UserDetailsServiceImpl(userRepository);
+        UserDetailsServiceImpl userDetailsServiceImpl = new UserDetailsServiceImpl();
         User user = (User) userDetailsServiceImpl.loadUserByUsername(authentication.getName());
         if (!(user instanceof User)) {
             throw new UserNotAllowedException();
@@ -68,7 +66,7 @@ public class AddressController {
     @PostMapping
     public ResponseEntity<Object> store(Authentication authentication, @RequestBody @Valid Address entity) {
         // get current logged user
-        UserDetailsServiceImpl userDetailsServiceImpl = new UserDetailsServiceImpl(userRepository);
+        UserDetailsServiceImpl userDetailsServiceImpl = new UserDetailsServiceImpl();
         User user = (User) userDetailsServiceImpl.loadUserByUsername(authentication.getName());
         if (!(user instanceof User)) {
             throw new UserNotAllowedException();
@@ -85,12 +83,14 @@ public class AddressController {
 
     @PutMapping("/{id}")
     public Address update(Authentication authentication, @PathVariable("id") Long id, @RequestBody Address entity) {
-        UserDetailsServiceImpl userDetailsServiceImpl = new UserDetailsServiceImpl(userRepository);
+        UserDetailsServiceImpl userDetailsServiceImpl = new UserDetailsServiceImpl();
         User user = (User) userDetailsServiceImpl.loadUserByUsername(authentication.getName());
         if (!(user instanceof User)) {
             throw new UserNotAllowedException();
         }
+
         Address address = addressService.getAddress(user, id);
+
         if (address == null) {
             throw new AddresNotFoundException();
         }
@@ -105,14 +105,20 @@ public class AddressController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> delete(Authentication authentication, @PathVariable("id") Long id) {
-        UserDetailsServiceImpl userDetailsServiceImpl = new UserDetailsServiceImpl(userRepository);
+        UserDetailsServiceImpl userDetailsServiceImpl = new UserDetailsServiceImpl();
         User user = (User) userDetailsServiceImpl.loadUserByUsername(authentication.getName());
         if (!(user instanceof User)) {
             throw new UserNotAllowedException();
         }
+
+        if (addressService.getAddress(user, id) == null) {
+            throw new AddresNotFoundException();
+        }
+
         if (addressService.delete(id)) {
             return ResponseEntity.ok().build();
         }
+
         return ResponseEntity.notFound().build();
     }
 
