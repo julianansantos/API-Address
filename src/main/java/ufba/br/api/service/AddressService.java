@@ -9,7 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import ufba.br.api.form.PaginationResponse;
+import ufba.br.api.dto.PaginationResponse;
 import ufba.br.api.model.Address;
 import ufba.br.api.model.User;
 import ufba.br.api.repository.AddressRepository;

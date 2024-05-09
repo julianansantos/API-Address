@@ -3,10 +3,10 @@ package ufba.br.api.controller;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
+import ufba.br.api.dto.AddressForm;
+import ufba.br.api.dto.PaginationResponse;
 import ufba.br.api.exceptions.AddresNotFoundException;
 import ufba.br.api.exceptions.UserNotAllowedException;
-import ufba.br.api.form.AddressForm;
-import ufba.br.api.form.PaginationResponse;
 import ufba.br.api.model.Address;
 import ufba.br.api.model.User;
 import ufba.br.api.repository.UserRepository;
@@ -81,7 +81,7 @@ public class AddressController {
         address.setStreet(entity.street());
         address.setComplement(entity.complement());
         address.setUser(user);
-        addressService.store(address);
+        address = addressService.store(address);
 
         // Create a Map representing the response
         Map<String, Long> response = new HashMap<>();
@@ -91,7 +91,7 @@ public class AddressController {
     }
 
     @PutMapping("/{id}")
-    public Address update(Authentication authentication, @PathVariable("id") Long id, @RequestBody AddressForm entity) {
+    public Address update(Authentication authentication, @PathVariable("id") Long id, @RequestBody @Valid AddressForm entity) {
         User user = (User) userDetailsServiceImpl.loadUserByUsername(authentication.getName());
         if (!(user instanceof User)) {
             throw new UserNotAllowedException();

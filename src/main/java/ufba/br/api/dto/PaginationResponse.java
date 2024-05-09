@@ -1,4 +1,4 @@
-package ufba.br.api.form;
+package ufba.br.api.dto;
 
 import java.util.List;
 

@@ -24,13 +24,14 @@ import jakarta.validation.constraints.NotBlank;
 @Entity
 @Table(name = "users")
 public class User implements UserDetails{
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(unique = true)
-    @NotBlank(message = "name cannot be blank")
+    @NotBlank
     private String name;
-    @NotBlank(message = "password cannot be blank")
+    @NotBlank
     private String password;
     @CreationTimestamp
     private Instant createdAt;

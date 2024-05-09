@@ -1,4 +1,4 @@
-package ufba.br.api.security;
+package ufba.br.api.config;
 
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
