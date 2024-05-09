@@ -1,5 +1,5 @@
 <div class="container">
-    <form (submit)="register()" class="form">
+    <form (submit)="submit()" class="form">
         <mat-form-field class="field">
             <mat-label>Usuário</mat-label>
             <input matInput placeholder="Username" name="username" class="input-field" [(ngModel)]="loginObject.username"
@@ -12,7 +12,7 @@
         </mat-form-field>
         <mat-form-field class="field">
             <mat-label>Confirmar Senha</mat-label>
-            <input matInput type="passwordC" placeholder="Password" name="passwordConfirm" class="input-field"
+            <input matInput type="password" placeholder="Password" name="passwordConfirm" class="input-field"
                 [(ngModel)]="loginObject.passwordConfirm" required minlength="8">
         </mat-form-field>
         <div class="button-container">

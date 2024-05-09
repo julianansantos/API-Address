@@ -11,6 +11,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { catchError, throwError } from 'rxjs';
 import { AddressFormComponent } from '../../../components/address-form/address-form.component';
 import { AddressService } from '../../../services/address.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmationDialogComponent } from '../../../components/confirmation-dialog/confirmation-dialog.component';
 @Component({
   selector: 'app-create',
   standalone: true,
@@ -35,24 +37,41 @@ export class CreateComponent {
     zipCode: '',
     country: ''
   }
-  constructor(private router: Router, private addressService: AddressService, private _snackBar: MatSnackBar) { }
+  constructor(public dialog: MatDialog, private router: Router, private addressService: AddressService, private _snackBar: MatSnackBar) { }
 
   goHome() {
     this.router.navigateByUrl('/home');
   }
 
   onSubmit() {
+    const confirm = this.dialog.open(ConfirmationDialogComponent, {
+      data: {
+        title: 'Salvar endereço',
+        message: 'Deseja realmente salvar o endereço?',
+        confirm: 'Confirmar',
+        cancel: 'Cancelar',
+      },
+    });
+    confirm.afterClosed().subscribe(result => {
+      if (result) {
+        this.create();
+      } else {
+        this.goHome();
+      }
+    });
+  }
+
+  create() {
     this.addressService.create(this.address)
-      .pipe(catchError((error: HttpErrorResponse) => {
-        this._snackBar.open('Erro ao salvar o endereço', 'Fechar', {
+      .pipe(catchError((errorResponse: HttpErrorResponse) => {
+        this._snackBar.open(errorResponse.error?.errors ? errorResponse.error?.errors[0]?.defaultMessage : 'Erro ao salvar o endereço', 'Fechar', {
           duration: 5000
         });
-        return throwError(() => error);
+        return throwError(() => errorResponse);
       }))
       .subscribe(() => {
         this._snackBar.open('Endereço criado com sucesso', 'Fechar')
         this.goHome();
       });
   }
-
 }

@@ -9,6 +9,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmationDialogComponent } from '../../../components/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-create',
@@ -30,21 +32,39 @@ export class CreateComponent {
     password: '',
     passwordConfirm: ''
   };
-  constructor(private router: Router, private _snackBar: MatSnackBar, private authService: AuthService) { }
+  constructor(private router: Router, public dialog: MatDialog, private _snackBar: MatSnackBar, private authService: AuthService) { }
 
   register() {
-    if (this.loginObject.password !== this.loginObject.passwordConfirm) {
-      this._snackBar.open('As senhas não conferem', 'Fechar');
-      return;
-    }
     this.authService.register(this.loginObject.username, this.loginObject.password)
-      .pipe(catchError((error: HttpErrorResponse) => {
-        this._snackBar.open('Não foi possível registrar esse usuário', 'Fechar');
-        return throwError(() => error);
+      .pipe(catchError((errorResponse: HttpErrorResponse) => {
+        this._snackBar.open(errorResponse.error?.errors ? errorResponse.error?.errors[0]?.defaultMessage : 'Não foi possível registrar esse usuário', 'Fechar');
+        return throwError(() => errorResponse);
       })).subscribe(() => {
         this._snackBar.open('Usuário registrado com sucesso', 'Fechar');
         this.goBack();
       });
+  }
+
+  submit() {
+    if (this.loginObject.password !== this.loginObject.passwordConfirm) {
+      this._snackBar.open('As senhas não conferem', 'Fechar');
+      return;
+    }
+    const confirm = this.dialog.open(ConfirmationDialogComponent, {
+      data: {
+        title: 'Criar usuário',
+        message: 'Deseja realmente criar esse usuário?',
+        confirm: 'Confirmar',
+        cancel: 'Cancelar',
+      },
+    });
+    confirm.afterClosed().subscribe(result => {
+      if (result) {
+        this.register();
+      } else {
+        this.goBack();
+      }
+    });
   }
 
   goBack() {

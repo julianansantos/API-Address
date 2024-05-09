@@ -76,11 +76,11 @@ export class EditComponent {
 
   updateAddress() {
     this.addressService.update(this.id, this.address$)
-      .pipe(catchError((error: HttpErrorResponse) => {
-        this._snackBar.open('Erro ao salvar o endereço', 'Fechar', {
+      .pipe(catchError((errorResponse: HttpErrorResponse) => {
+        this._snackBar.open(errorResponse.error?.errors ? errorResponse.error?.errors[0]?.defaultMessage : 'Erro ao salvar o endereço', 'Fechar', {
           duration: 5000
         });
-        return throwError(() => error);
+        return throwError(() => errorResponse);
       }))
       .subscribe(() => {
         this._snackBar.open('Endereço salvo com sucesso', 'Fechar')
