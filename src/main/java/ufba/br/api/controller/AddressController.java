@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 import jakarta.validation.Valid;
 import ufba.br.api.exceptions.AddresNotFoundException;
 import ufba.br.api.exceptions.UserNotAllowedException;
+import ufba.br.api.form.AddressForm;
 import ufba.br.api.form.PaginationResponse;
 import ufba.br.api.model.Address;
 import ufba.br.api.model.User;
@@ -36,12 +37,14 @@ public class AddressController {
     @Autowired
     private AddressService addressService;
 
+    @Autowired
+    private UserDetailsServiceImpl userDetailsServiceImpl;
+
     @GetMapping
     public ResponseEntity<PaginationResponse<Address>> index(Authentication authentication,
             @RequestParam(value = "page", defaultValue = "0", required = false) int page,
             @RequestParam(value = "size", defaultValue = "5", required = false) int size) {
 
-        UserDetailsServiceImpl userDetailsServiceImpl = new UserDetailsServiceImpl();
         User user = (User) userDetailsServiceImpl.loadUserByUsername(authentication.getName());
         if (!(user instanceof User)) {
             throw new UserNotAllowedException();
@@ -51,7 +54,6 @@ public class AddressController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Address> show(Authentication authentication, @PathVariable("id") Long id) {
-        UserDetailsServiceImpl userDetailsServiceImpl = new UserDetailsServiceImpl();
         User user = (User) userDetailsServiceImpl.loadUserByUsername(authentication.getName());
         if (!(user instanceof User)) {
             throw new UserNotAllowedException();
@@ -64,26 +66,32 @@ public class AddressController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> store(Authentication authentication, @RequestBody @Valid Address entity) {
+    public ResponseEntity<Object> store(Authentication authentication, @RequestBody @Valid AddressForm entity) {
         // get current logged user
-        UserDetailsServiceImpl userDetailsServiceImpl = new UserDetailsServiceImpl();
         User user = (User) userDetailsServiceImpl.loadUserByUsername(authentication.getName());
         if (!(user instanceof User)) {
             throw new UserNotAllowedException();
         }
-        entity.setUser(user);
-        addressService.store(entity);
+        Address address = new Address();
+        address.setCity(entity.city());
+        address.setCountry(entity.country());
+        address.setNumber(entity.number());
+        address.setZipCode(entity.zipCode());
+        address.setState(entity.state());
+        address.setStreet(entity.street());
+        address.setComplement(entity.complement());
+        address.setUser(user);
+        addressService.store(address);
 
         // Create a Map representing the response
         Map<String, Long> response = new HashMap<>();
-        response.put("id", entity.getId());
+        response.put("id", address.getId());
         return ResponseEntity.ok(response);
 
     }
 
     @PutMapping("/{id}")
-    public Address update(Authentication authentication, @PathVariable("id") Long id, @RequestBody Address entity) {
-        UserDetailsServiceImpl userDetailsServiceImpl = new UserDetailsServiceImpl();
+    public Address update(Authentication authentication, @PathVariable("id") Long id, @RequestBody AddressForm entity) {
         User user = (User) userDetailsServiceImpl.loadUserByUsername(authentication.getName());
         if (!(user instanceof User)) {
             throw new UserNotAllowedException();
@@ -94,18 +102,18 @@ public class AddressController {
         if (address == null) {
             throw new AddresNotFoundException();
         }
-        address.setCity(entity.getCity());
-        address.setCountry(entity.getCountry());
-        address.setNumber(entity.getNumber());
-        address.setZipCode(entity.getZipCode());
-        address.setState(entity.getState());
-        address.setStreet(entity.getStreet());
+        address.setCity(entity.city());
+        address.setCountry(entity.country());
+        address.setNumber(entity.number());
+        address.setZipCode(entity.zipCode());
+        address.setState(entity.state());
+        address.setStreet(entity.street());
+        address.setComplement(entity.complement());
         return addressService.store(address);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> delete(Authentication authentication, @PathVariable("id") Long id) {
-        UserDetailsServiceImpl userDetailsServiceImpl = new UserDetailsServiceImpl();
         User user = (User) userDetailsServiceImpl.loadUserByUsername(authentication.getName());
         if (!(user instanceof User)) {
             throw new UserNotAllowedException();
