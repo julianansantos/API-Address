@@ -6,6 +6,8 @@ import { catchError, firstValueFrom, throwError } from 'rxjs';
 import { AddressForm } from '../../../interface/AddressForm';
 import { AddressFormComponent } from '../../../components/address-form/address-form.component';
 import { AddressService } from '../../../services/address.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmationDialogComponent } from '../../../components/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-edit',
@@ -27,7 +29,7 @@ export class EditComponent {
     country: ''
   }
   @Input({ transform: numberAttribute }) id!: number;
-  constructor(private router: Router, private _snackBar: MatSnackBar, private addressService: AddressService) {
+  constructor(public dialog: MatDialog, private router: Router, private _snackBar: MatSnackBar, private addressService: AddressService) {
   }
 
   ngOnInit() {
@@ -54,6 +56,25 @@ export class EditComponent {
   }
 
   onSubmit() {
+    const confirm = this.dialog.open(ConfirmationDialogComponent, {
+      data: {
+        title: 'Alterar endereço',
+        message: 'Deseja realmente alterar o endereço?',
+        confirm: 'Confirmar',
+        cancel: 'Cancelar',
+      },
+    });
+    confirm.afterClosed().subscribe(result => {
+      if (result) {
+        this.updateAddress();
+      } else {
+        this.goHome();
+      }
+    });
+
+  }
+
+  updateAddress() {
     this.addressService.update(this.id, this.address$)
       .pipe(catchError((error: HttpErrorResponse) => {
         this._snackBar.open('Erro ao salvar o endereço', 'Fechar', {
