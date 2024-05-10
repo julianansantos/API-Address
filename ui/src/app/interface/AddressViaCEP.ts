@@ -4,4 +4,5 @@ export interface AddressViaCEP {
     bairro: string;
     localidade: string;
     uf: string;
+    complemento: string;
 }
