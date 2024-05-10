@@ -15,7 +15,7 @@
         <input matInput placeholder="Ex. 100" [(ngModel)]="address.number" name="number">
     </mat-form-field>
 
-    <mat-form-field>
+    <mat-form-field class="field">
         <mat-label>Estado*</mat-label>
         <mat-select matNativeControl required [(ngModel)]="selectedState" [(value)]="selectedState" name="state" placeholder="Ex. Bahia" (selectionChange)="changeState()">
             @for (state of states; track state) {
@@ -24,7 +24,7 @@
         </mat-select>
     </mat-form-field>
 
-    <mat-form-field>
+    <mat-form-field class="field">
         <mat-label>Cidade*</mat-label>
         <mat-select matNativeControl required [(ngModel)]="address.city" [(value)]="address.city" name="city" placeholder="Ex. São Paulo">
             @for (city of cities; track city) {
@@ -32,7 +32,7 @@
             }
         </mat-select>
     </mat-form-field>
-    
+
     <mat-form-field class="field">
         <mat-label>País*</mat-label>
         <input matInput required placeholder="Ex. Brasil" [(ngModel)]="address.country" name="country">
