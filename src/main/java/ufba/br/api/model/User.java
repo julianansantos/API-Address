@@ -17,14 +17,17 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "users")
-public class User implements UserDetails{
-    
+public class User implements UserDetails {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -32,6 +35,7 @@ public class User implements UserDetails{
     @NotBlank
     private String name;
     @NotBlank
+    @JsonIgnore
     private String password;
     @CreationTimestamp
     private Instant createdAt;
@@ -42,15 +46,35 @@ public class User implements UserDetails{
     @JsonIgnore
     private List<Address> addresses;
 
+    @OneToMany(mappedBy = "owner")
+    @JsonIgnore
+    private List<Community> myCommunities;
+
+    @ManyToMany
+    @JoinTable(name = "comunity_joined", joinColumns = @JoinColumn(name = "community_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
+    @JsonIgnore
+    private List<Community> communities;
+
+    public List<Community> getCommunities() {
+        return communities;
+    }
+
+    public void setCommunities(List<Community> communities) {
+        this.communities = communities;
+    }
+
     public List<Address> getAddresses() {
         return addresses;
     }
+
     public void setAddresses(List<Address> addresses) {
         this.addresses = addresses;
     }
+
     public Long getId() {
         return id;
     }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -58,12 +82,15 @@ public class User implements UserDetails{
     public String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
+
     public String getPassword() {
         return password;
     }
+
     public void setPassword(String password) {
         this.password = password;
     }
@@ -72,22 +99,27 @@ public class User implements UserDetails{
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("all"));
     }
+
     @Override
     public String getUsername() {
         return this.name;
     }
+
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
+
     @Override
     public boolean isAccountNonLocked() {
         return true;
     }
+
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
+
     @Override
     public boolean isEnabled() {
         return true;
