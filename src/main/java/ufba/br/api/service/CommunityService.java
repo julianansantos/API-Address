@@ -1,9 +1,17 @@
 package ufba.br.api.service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import ufba.br.api.dto.CommunityForm;
+import ufba.br.api.dto.PaginationResponse;
+import ufba.br.api.exceptions.UserNotAllowedException;
 import ufba.br.api.model.Community;
 import ufba.br.api.model.User;
 import ufba.br.api.repository.CommunityRepositiory;
@@ -13,13 +21,14 @@ public class CommunityService {
     @Autowired
     private CommunityRepositiory CommunityRepositiory;
 
-    public void createCommunity(CommunityForm communityForm, User owner) {
+    public Community createCommunity(CommunityForm communityForm, User owner) {
         Community community = new Community();
         community.setName(communityForm.name());
         community.setDescription(communityForm.description());
         // set owner
         community.setOwner(owner);
         CommunityRepositiory.save(community);
+        return community;
     }
 
     public void joinCommunity(Long communityId, User user) {
@@ -34,9 +43,21 @@ public class CommunityService {
         CommunityRepositiory.save(community);
     }
 
-    public void deleteCommunity(Long communityId) {
-        CommunityRepositiory.deleteById(communityId);
+    public void deleteCommunity(Long communityId, User ownUser) {
+        Community community = CommunityRepositiory.findById(communityId).get();
+        if (community.getOwner().getId() != ownUser.getId()) {
+            throw new UserNotAllowedException();
+        }
+        CommunityRepositiory.delete(community);
     }
 
+    public List<Community> getUserCommunities(User user) { 
+        return user.getMyCommunities();
+    }
+
+    public List<Community> getCommunities() {
+         List<Community> communities = CommunityRepositiory.findAll();
+         return communities;
+    }
 
 }

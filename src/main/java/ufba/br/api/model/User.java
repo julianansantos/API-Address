@@ -51,9 +51,22 @@ public class User implements UserDetails {
     private List<Community> myCommunities;
 
     @ManyToMany
-    @JoinTable(name = "comunity_joined", joinColumns = @JoinColumn(name = "community_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
+    @JoinTable(name = "comunity_joined", 
+        joinColumns = @JoinColumn(name = "community_id"), 
+        inverseJoinColumns = @JoinColumn(name = "user_id"),
+        uniqueConstraints = @jakarta.persistence.UniqueConstraint(columnNames = {"community_id", "user_id"})
+    )
     @JsonIgnore
     private List<Community> communities;
+
+
+    public List<Community> getMyCommunities() {
+        return myCommunities;
+    }
+
+    public void setMyCommunities(List<Community> myCommunities) {
+        this.myCommunities = myCommunities;
+    }
 
     public List<Community> getCommunities() {
         return communities;
@@ -95,6 +108,7 @@ public class User implements UserDetails {
         this.password = password;
     }
 
+    @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("all"));
@@ -106,21 +120,25 @@ public class User implements UserDetails {
     }
 
     @Override
+    @JsonIgnore
     public boolean isAccountNonExpired() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isAccountNonLocked() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isEnabled() {
         return true;
     }

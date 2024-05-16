@@ -1,8 +1,10 @@
 package ufba.br.api.repository;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.ListCrudRepository;
+import org.springframework.stereotype.Repository;
+
 import ufba.br.api.model.Community;
 
-public interface CommunityRepositiory extends CrudRepository<Community, Long> {
-    
+@Repository
+public interface CommunityRepositiory extends ListCrudRepository<Community, Long> {
 }

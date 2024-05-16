@@ -7,7 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -23,7 +23,7 @@ public class Community {
     @ManyToMany
     private List<User> participants;
 
-    @OneToOne
+    @ManyToOne
     private User owner;
 
     public Long getId() {

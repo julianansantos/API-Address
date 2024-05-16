@@ -7,6 +7,9 @@ import ufba.br.api.dto.UserForm;
 import ufba.br.api.model.User;
 import ufba.br.api.service.UserService;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,7 +24,9 @@ public class UserController {
     @PostMapping("register")
     public ResponseEntity<Object> register(@RequestBody @Valid UserForm user) {
         User newUser = userService.store(user);
-        return ResponseEntity.ok(newUser);
+        Map<String, Object> response = new HashMap<>();
+        response.put("id", newUser.getId());
+        return ResponseEntity.ok(response);
     }
     
 }
