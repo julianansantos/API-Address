@@ -51,7 +51,7 @@ public class User implements UserDetails {
     private List<Community> myCommunities;
 
     @ManyToMany
-    @JoinTable(name = "comunity_joined", 
+    @JoinTable(name = "community_user", 
         joinColumns = @JoinColumn(name = "community_id"), 
         inverseJoinColumns = @JoinColumn(name = "user_id"),
         uniqueConstraints = @jakarta.persistence.UniqueConstraint(columnNames = {"community_id", "user_id"})

@@ -6,6 +6,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
@@ -21,6 +23,11 @@ public class Community {
     private String description;
 
     @ManyToMany
+    @JoinTable(name = "community_user", 
+        joinColumns = @JoinColumn(name = "community_id"), 
+        inverseJoinColumns = @JoinColumn(name = "user_id"),
+        uniqueConstraints = @jakarta.persistence.UniqueConstraint(columnNames = {"community_id", "user_id"})
+    )
     private List<User> participants;
 
     @ManyToOne
