@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import ufba.br.api.dto.CommunityForm;
 import ufba.br.api.dto.PaginationResponse;
+import ufba.br.api.exceptions.UserAlreadyInCommunityException;
 import ufba.br.api.exceptions.UserNotAllowedException;
 import ufba.br.api.model.Community;
 import ufba.br.api.model.User;
@@ -33,12 +34,18 @@ public class CommunityService {
 
     public void joinCommunity(Long communityId, User user) {
         Community community = CommunityRepositiory.findById(communityId).get();
+        if (community.getParticipants().contains(user)) {
+            throw new UserAlreadyInCommunityException();
+        }
         community.getParticipants().add(user);
         CommunityRepositiory.save(community);
     }
 
     public void leaveCommunity(Long communityId, User user) {
         Community community = CommunityRepositiory.findById(communityId).get();
+        if (!community.getParticipants().contains(user)) {
+            throw new UserNotAllowedException();
+        }
         community.getParticipants().remove(user);
         CommunityRepositiory.save(community);
     }
@@ -53,6 +60,10 @@ public class CommunityService {
 
     public List<Community> getUserCommunities(User user) { 
         return user.getMyCommunities();
+    }
+
+    public List<Community> getUserParticipatingCommunities(User user) {
+        return user.getCommunities();
     }
 
     public List<Community> getCommunities() {
