@@ -11,6 +11,7 @@ import ufba.br.api.model.Address;
 import ufba.br.api.model.User;
 import ufba.br.api.repository.UserRepository;
 import ufba.br.api.service.AddressService;
+import ufba.br.api.service.CommunityService;
 import ufba.br.api.service.UserDetailsServiceImpl;
 
 import java.util.HashMap;
@@ -36,6 +37,8 @@ public class AddressController {
 
     @Autowired
     private AddressService addressService;
+    @Autowired
+    private CommunityService communityService;
 
     @Autowired
     private UserDetailsServiceImpl userDetailsServiceImpl;
@@ -81,8 +84,9 @@ public class AddressController {
         address.setStreet(entity.street());
         address.setComplement(entity.complement());
         address.setUser(user);
-        address = addressService.store(address);
-
+        addressService.store(address);
+        address.setCommunities(communityService.getCommunities(entity.communitiesIds()));
+        addressService.store(address);
         // Create a Map representing the response
         Map<String, Long> response = new HashMap<>();
         response.put("id", address.getId());

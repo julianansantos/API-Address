@@ -23,12 +23,7 @@ public class Community {
     private String description;
 
     @ManyToMany
-    @JoinTable(name = "community_user", 
-        joinColumns = @JoinColumn(name = "community_id"), 
-        inverseJoinColumns = @JoinColumn(name = "user_id"),
-        uniqueConstraints = @jakarta.persistence.UniqueConstraint(columnNames = {"community_id", "user_id"})
-    )
-    private List<User> participants;
+    private List<Address> addresses;
 
     @ManyToOne
     private User owner;
@@ -55,14 +50,6 @@ public class Community {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public List<User> getParticipants() {
-        return participants;
-    }
-
-    public void setParticipants(List<User> participants) {
-        this.participants = participants;
     }
 
     public User getOwner() {

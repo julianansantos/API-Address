@@ -46,26 +46,6 @@ public class CommunityController {
         return ResponseEntity.ok(newCommunity.getId());        
     }
 
-    @PostMapping("/{id}/join")
-    public ResponseEntity<Object> join(Authentication authentication, @PathVariable("id") Long id) {
-        User user = (User) userDetailsServiceImpl.loadUserByUsername(authentication.getName());
-        if (!(user instanceof User)) {
-            throw new UserNotAllowedException();
-        }
-        communityService.joinCommunity(id, user);
-        return ResponseEntity.ok().build();
-    }
-
-    @PostMapping("/{id}/leave")
-    public ResponseEntity<Object> leave(Authentication authentication, @PathVariable("id") Long id) {
-        User user = (User) userDetailsServiceImpl.loadUserByUsername(authentication.getName());
-        if (!(user instanceof User)) {
-            throw new UserNotAllowedException();
-        }
-        communityService.leaveCommunity(id, user);
-        return ResponseEntity.ok().build();
-    }
-
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> delete(Authentication authentication, @PathVariable("id") Long id) {
         User user = (User) userDetailsServiceImpl.loadUserByUsername(authentication.getName());
@@ -77,7 +57,7 @@ public class CommunityController {
     }
 
     @GetMapping("/my")
-    public ResponseEntity<List<Community>> index(Authentication authentication) {
+    public ResponseEntity<List<Community>> indexMy(Authentication authentication) {
         User user = (User) userDetailsServiceImpl.loadUserByUsername(authentication.getName());
         if (!(user instanceof User)) {
             throw new UserNotAllowedException();
@@ -86,19 +66,8 @@ public class CommunityController {
         return ResponseEntity.ok(communities);
     }
 
-    @GetMapping("/participating")
-    public ResponseEntity<List<Community>> participating(Authentication authentication) {
-        User user = (User) userDetailsServiceImpl.loadUserByUsername(authentication.getName());
-        if (!(user instanceof User)) {
-            throw new UserNotAllowedException();
-        }
-        List<Community> communities = communityService.getUserParticipatingCommunities(user);
-        return ResponseEntity.ok(communities);
-    }
-
     @GetMapping
-    public ResponseEntity<List<Community>> index(@RequestParam(value = "page", defaultValue = "0", required = false) int page,
-            @RequestParam(value = "size", defaultValue = "5", required = false) int size) {
+    public ResponseEntity<List<Community>> index() {
         List<Community> communities = communityService.getCommunities();
         return ResponseEntity.ok(communities);
     }

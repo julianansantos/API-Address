@@ -50,16 +50,7 @@ public class User implements UserDetails {
     @JsonIgnore
     private List<Community> myCommunities;
 
-    @ManyToMany
-    @JoinTable(name = "community_user", 
-        joinColumns = @JoinColumn(name = "community_id"), 
-        inverseJoinColumns = @JoinColumn(name = "user_id"),
-        uniqueConstraints = @jakarta.persistence.UniqueConstraint(columnNames = {"community_id", "user_id"})
-    )
-    @JsonIgnore
-    private List<Community> communities;
-
-
+    
     public List<Community> getMyCommunities() {
         return myCommunities;
     }
@@ -68,13 +59,6 @@ public class User implements UserDetails {
         this.myCommunities = myCommunities;
     }
 
-    public List<Community> getCommunities() {
-        return communities;
-    }
-
-    public void setCommunities(List<Community> communities) {
-        this.communities = communities;
-    }
 
     public List<Address> getAddresses() {
         return addresses;
