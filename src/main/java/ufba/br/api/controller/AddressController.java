@@ -113,6 +113,8 @@ public class AddressController {
         address.setState(entity.state());
         address.setStreet(entity.street());
         address.setComplement(entity.complement());
+        addressService.store(address);
+        address.setCommunities(communityService.getCommunities(entity.communitiesIds()));
         return addressService.store(address);
     }
 

@@ -6,4 +6,5 @@ export interface AddressForm {
     country: string;
     complement?: string | null;
     number?: number | null;
+    communitiesIds: number[];
 }

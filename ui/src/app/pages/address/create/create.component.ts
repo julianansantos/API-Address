@@ -35,7 +35,8 @@ export class CreateComponent {
     city: '',
     state: '',
     zipCode: '',
-    country: ''
+    country: '',
+    communitiesIds: []
   }
   constructor(public dialog: MatDialog, private router: Router, private addressService: AddressService, private _snackBar: MatSnackBar) { }
 

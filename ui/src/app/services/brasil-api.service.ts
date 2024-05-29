@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { City, State } from '../interface/BrasilAPI';
+import { AddressViaCEP } from '@app/interface/AddressViaCEP';
 
 const API_URL = 'https://brasilapi.com.br/api';
 
@@ -16,5 +17,9 @@ export class BrasilAPIService {
 
   getCities(uf: string) {
     return this.httpClient.get<City[]>(`${API_URL}/ibge/municipios/v1/${uf}?providers=dados-abertos-br,gov,wikipedia`);
+  }
+
+  findCEP(cep: string) {
+    return this.httpClient.get<AddressViaCEP>('https://viacep.com.br/ws/' + cep + '/json/')
   }
 }

@@ -43,6 +43,15 @@
         <input matInput placeholder="Ex. Bloco 1, Apto 101" [(ngModel)]="address.complement" name="complement">
     </mat-form-field>
 
+    <mat-form-field class="field">
+        <mat-label>Comunidades</mat-label>
+        <mat-select matNativeControl multiple [(ngModel)]="address.communitiesIds" [(value)]="address.communitiesIds" name="state" placeholder="Ex. Corrida Feira">
+            @for (community of communities; track community) {
+                <mat-option [value]="community.id">{{community.name}}</mat-option>
+            }
+        </mat-select>
+    </mat-form-field>
+
     <div class="button-container">
         <button mat-stroked-button color="accent" class="register-button button" (click)="goHome()" type="reset">Cancelar</button>
         <button mat-flat-button color="primary" class="login-button button" type="submit">Salvar</button>

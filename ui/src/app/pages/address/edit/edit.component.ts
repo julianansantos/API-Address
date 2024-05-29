@@ -26,7 +26,8 @@ export class EditComponent {
     city: '',
     state: '',
     zipCode: '',
-    country: ''
+    country: '',
+    communitiesIds: []
   }
   @Input({ transform: numberAttribute }) id!: number;
   constructor(public dialog: MatDialog, private router: Router, private _snackBar: MatSnackBar, private addressService: AddressService) {
@@ -34,7 +35,7 @@ export class EditComponent {
 
   ngOnInit() {
     this.getAddress(this.id).then(address => {
-      this.address$ = address;
+      this.address$ = { ...address, communitiesIds: address.communities.map(community => community.id) };
     });
   }
 
