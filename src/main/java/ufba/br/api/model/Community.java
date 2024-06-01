@@ -6,6 +6,8 @@ import java.util.List;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -28,13 +30,19 @@ public class Community {
     private Instant createdAt;
     @UpdateTimestamp
     private Instant updatedAt;
-
-    @ManyToMany
+    @ManyToMany(mappedBy = "communities")
+    @JsonIgnore
     private List<Address> addresses;
-
     @ManyToOne
     private User owner;
+    
+    public List<Address> getAddresses() {
+        return addresses;
+    }
 
+    public void setAddresses(List<Address> addresses) {
+        this.addresses = addresses;
+    }
     public Long getId() {
         return id;
     }

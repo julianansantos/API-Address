@@ -9,12 +9,13 @@ import ufba.br.api.dto.CommunityForm;
 import ufba.br.api.exceptions.UserNotAllowedException;
 import ufba.br.api.model.Community;
 import ufba.br.api.model.User;
-import ufba.br.api.repository.CommunityRepositiory;
+import ufba.br.api.repository.CommunityRepository;
+import ufba.br.api.repository.CommunityRepositoryCustomImpl;
 
 @Service
 public class CommunityService {
     @Autowired
-    private CommunityRepositiory CommunityRepositiory;
+    private CommunityRepository communityRepositiory;
 
     public Community createCommunity(CommunityForm communityForm, User owner) {
         Community community = new Community();
@@ -22,16 +23,16 @@ public class CommunityService {
         community.setDescription(communityForm.description());
         // set owner
         community.setOwner(owner);
-        CommunityRepositiory.save(community);
+        communityRepositiory.save(community);
         return community;
     }
 
     public void deleteCommunity(Long communityId, User ownUser) {
-        Community community = CommunityRepositiory.findById(communityId).get();
+        Community community = communityRepositiory.findById(communityId).get();
         if (community.getOwner().getId() != ownUser.getId()) {
             throw new UserNotAllowedException();
         }
-        CommunityRepositiory.delete(community);
+        communityRepositiory.delete(community);
     }
 
     public List<Community> getUserCommunities(User user) { 
@@ -39,12 +40,15 @@ public class CommunityService {
     }
 
     public List<Community> getCommunities(List<Long> ids) {
-         List<Community> communities = CommunityRepositiory.findAllById(ids);
+         List<Community> communities = communityRepositiory.findAllById(ids);
          return communities;
     }
 
     public List<Community> getCommunities() {
-        return CommunityRepositiory.findAll();
+        return communityRepositiory.findAll();
     }
 
+    public List<Community> getTop3Communities() {
+        return communityRepositiory.findMostPopularCommunities();
+    }
 }

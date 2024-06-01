@@ -19,12 +19,7 @@ import ufba.br.api.model.User;
 import ufba.br.api.service.CommunityService;
 import ufba.br.api.service.UserDetailsServiceImpl;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
-
-
 
 @RestController
 @RequestMapping("/community")
@@ -72,5 +67,10 @@ public class CommunityController {
         return ResponseEntity.ok(communities);
     }
     
+    @GetMapping("/top")
+    public ResponseEntity<List<Community>> indexTop() {
+        List<Community> communities = communityService.getTop3Communities();
+        return ResponseEntity.ok(communities);
+    }
     
 }

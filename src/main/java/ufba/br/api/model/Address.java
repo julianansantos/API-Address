@@ -39,7 +39,6 @@ public class Address {
     private String complement;
     private int number;
     
-
     @CreationTimestamp
     private Instant createdAt;
     @UpdateTimestamp
