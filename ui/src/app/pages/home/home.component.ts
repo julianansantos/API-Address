@@ -1,21 +1,27 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
-import { AuthService } from '../../services/auth.service';
-import { Pagination } from '../../interface/Pagination';
-import { Address } from '../../interface/Address';
+import { AuthService } from '@app/services/auth.service';
+import { Pagination } from '@app/interface/Pagination';
+import { Address, Community } from '@app/interface/Address';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { PageEvent, MatPaginatorModule } from '@angular/material/paginator';
-import { JsonPipe } from '@angular/common';
+import { JsonPipe, NgFor } from '@angular/common';
 import { catchError, throwError } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { AddressService } from '../../services/address.service';
+import { AddressService } from '@app/services/address.service';
+import { CommunityService } from '@app/services/community.service';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [MatTableModule, MatIconModule, MatButtonModule, MatPaginatorModule, JsonPipe],
+  imports: [MatTableModule,
+    MatIconModule,
+    MatButtonModule,
+    MatPaginatorModule,
+    JsonPipe,
+    NgFor],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
@@ -30,8 +36,11 @@ export class HomeComponent {
     totalElements: 0,
     totalPages: 0
   };
-
-  constructor(private addressService: AddressService, private router: Router, private authService: AuthService, private _snackBar: MatSnackBar) { }
+  mostPopularCommunities: Community[] = [];
+  constructor(private addressService: AddressService,
+    private router: Router,
+    private _snackBar: MatSnackBar,
+  ) { }
 
   ngOnInit() {
     this.paginate();
@@ -52,6 +61,7 @@ export class HomeComponent {
 
     });
   }
+
 
   deleteAddress(id: number) {
     this.addressService.delete(id).pipe(catchError((error: HttpErrorResponse) => {

@@ -14,4 +14,8 @@ export class CommunityService {
   findAll() {
     return this.httpClient.get<Community[]>('api/community');
   }
+
+  findMostPopular() {
+    return this.httpClient.get<Community[]>('api/community/top');
+  }
 }

@@ -11,6 +11,20 @@
     </div>
     <div id="hamburger-menu">&#9776;</div>
 </div>
-<div class="main-content">
-    <router-outlet></router-outlet>
+<div class="main-content page-container">
+    <div class="col-9">
+        <router-outlet></router-outlet>
+    </div>
+    <!-- List most popular communities -->
+    <aside class="col-3 popular">
+        <h2>Comunidades populares</h2>
+        <ul>
+            <li *ngFor="let community of mostPopularCommunities">
+                <mat-icon fontIcon="star" color="primary"></mat-icon>
+                <span>
+                    {{community.name}}
+                </span>
+            </li>
+        </ul>
+    </aside>
 </div>
