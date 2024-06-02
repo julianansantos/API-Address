@@ -15,15 +15,19 @@ import { MatIcon } from '@angular/material/icon';
 })
 export class MainComponent {
   mostPopularCommunities: Community[] = [];
+  subscription: any;
   constructor(private authService: AuthService, private router: Router, private communityService: CommunityService) { 
-    router.events.subscribe((val) => {
+  }
+  ngOnInit() {
+    this.findMostPopularCommunities();
+    this.subscription = this.router.events.subscribe((val) => {
       if (val instanceof NavigationStart) {
         this.findMostPopularCommunities();
       }
     });
   }
-  ngOnInit() {
-    this.findMostPopularCommunities();
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
   logout() {
     this.authService.logout();
