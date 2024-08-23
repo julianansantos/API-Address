@@ -1,29 +1,3 @@
-<!-- <div class="parent">
-    <div class="login-container">
-        <form class="login-form" (submit)="onLogin()">
-            <mat-form-field class="field">
-                <mat-label>Usuário</mat-label>
-                <input matInput placeholder="Username" name="username" class="input-field"
-                    [(ngModel)]="loginObject.username" required>
-            </mat-form-field>
-            <mat-form-field class="field">
-                <mat-label>Senha</mat-label>
-                <input matInput [type]="hide ? 'password' : 'text'" placeholder="Password" name="password" class="input-field"
-                    [(ngModel)]="loginObject.password" required>
-                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
-                    [attr.aria-pressed]="hide" type="button">
-                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-                </button>
-            </mat-form-field>
-            <div class="button-container">
-                <button mat-flat-button color="primary" class="login-button" type="submit">Entrar</button>
-                <button mat-button color="accent" class="register-button"
-                    (click)="goRegister()" type="button">Registrar</button>
-            </div>
-        </form>
-    </div>
-</div> -->
-
 <app-default-login-layout
   title="Entre agora"
   primaryBtnText="Login"
@@ -33,12 +7,12 @@
 >
 
 <form class="login-form">
-    <mat-form-field>
+    <mat-form-field class="w-100">
         <mat-label>Usuário</mat-label>
         <input matInput placeholder="Username" name="username"
             [(ngModel)]="loginObject.username" required>
     </mat-form-field>
-    <mat-form-field>
+    <mat-form-field class="w-100">
         <mat-label>Senha</mat-label>
         <input matInput [type]="hide ? 'password' : 'text'" placeholder="Password" name="password"
             [(ngModel)]="loginObject.password" required>
