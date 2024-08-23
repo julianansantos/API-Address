@@ -1,4 +1,4 @@
-<div class="parent">
+<!-- <div class="parent">
     <div class="login-container">
         <form class="login-form" (submit)="onLogin()">
             <mat-form-field class="field">
@@ -22,4 +22,32 @@
             </div>
         </form>
     </div>
-</div>
+</div> -->
+
+<app-default-login-layout
+  title="Entre agora"
+  primaryBtnText="Login"
+  secondaryBtnText="Cadastrar"
+  (navigate)="goRegister()"
+  (submit)="login()"
+>
+
+<form class="login-form">
+    <mat-form-field>
+        <mat-label>Usuário</mat-label>
+        <input matInput placeholder="Username" name="username"
+            [(ngModel)]="loginObject.username" required>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Senha</mat-label>
+        <input matInput [type]="hide ? 'password' : 'text'" placeholder="Password" name="password"
+            [(ngModel)]="loginObject.password" required>
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide" type="button">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+    </mat-form-field>
+</form>
+
+</app-default-login-layout>
+

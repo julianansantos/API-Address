@@ -10,6 +10,7 @@ import { AuthService } from '../../../services/auth.service';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
+import { DefaultLoginLayoutComponent } from '@app/components/default-login-layout/default-login-layout.component';
 export const ERROR_COUNT = new HttpContextToken(() => 0);
 @Component({
   selector: 'app-login',
@@ -20,7 +21,8 @@ export const ERROR_COUNT = new HttpContextToken(() => 0);
     MatButtonModule,
     MatInputModule,
     MatFormFieldModule,
-    MatIconModule
+    MatIconModule,
+    DefaultLoginLayoutComponent
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
@@ -35,7 +37,8 @@ export class LoginComponent {
   hide = true;
   constructor(private router: Router, private _snackBar: MatSnackBar, private authService: AuthService) { }
 
-  onLogin() {
+  login() {
+    console.log('here')
     this.authService.login(this.loginObject.username, this.loginObject.password)
       .pipe(catchError((error: HttpErrorResponse) => {
         this._snackBar.open('Usuário e/ou senha inválidos', 'Fechar');
