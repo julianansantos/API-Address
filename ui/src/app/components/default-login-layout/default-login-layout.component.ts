@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 import {MatDividerModule} from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
@@ -22,6 +23,20 @@ export class DefaultLoginLayoutComponent {
 
   @Output("navigate") onNavigate = new EventEmitter();
 
+  showSVG = true;
+
+  constructor(breakpointObserver: BreakpointObserver) {
+    breakpointObserver.observe([
+      Breakpoints.XSmall,
+      Breakpoints.Small
+    ]).subscribe(result => {
+      if (result.matches) {
+        this.showSVG = false;
+      } else {
+        this.showSVG = true;
+      }
+    });
+  }
 
   submit(){
     this.onSubmit.emit();

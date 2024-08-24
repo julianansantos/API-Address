@@ -35,10 +35,10 @@
     <ng-container matColumnDef="actions">
         <mat-header-cell *matHeaderCellDef> Ações </mat-header-cell>
         <mat-cell *matCellDef="let row">
-            <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" (click)="edit(row.id)">
+            <button mat-icon-button aria-label="Opção para editar endereço" (click)="edit(row.id)">
                 <mat-icon color="primary">edit</mat-icon>
             </button>
-            <button mat-icon-button aria-label="Example icon button with a vertical three dot icon" (click)="deleteAddress(row.id)">
+            <button mat-icon-button aria-label="Opção para excluir endereço" (click)="deleteAddress(row.id)">
                 <mat-icon color="warn">delete</mat-icon>
             </button>
         </mat-cell>

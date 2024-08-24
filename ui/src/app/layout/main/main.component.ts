@@ -5,11 +5,12 @@ import { CommunityService } from '@app/services/community.service';
 import { Community } from '@app/interface/Address';
 import { NgFor } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-main',
   standalone: true,
-  imports: [RouterOutlet, NgFor, MatIcon],
+  imports: [RouterOutlet, NgFor, MatIcon, MatButtonModule],
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss'
 })

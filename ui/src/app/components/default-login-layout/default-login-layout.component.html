@@ -11,8 +11,9 @@
         <button mat-button color="accent" class="w-100" (click)="navigate()">{{ secondaryBtnText }}</button>
     </div>
   </section>
-  <section class="main-section">
+  <section class="main-section" [style]="!showSVG ? 'display: none' : ''">
     <h1>Addrex, seu endereço aqui!</h1>
     <img src="/assets/svg/main-illustration.svg" height="50%"/>
   </section>
+
 </main>
