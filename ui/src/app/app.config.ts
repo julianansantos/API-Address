@@ -12,7 +12,7 @@ import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes, withComponentInputBinding()),
-    importProvidersFrom(HttpClientModule), provideAnimationsAsync(), provideAnimationsAsync(),
+    importProvidersFrom(HttpClientModule),
     {
       provide: HTTP_INTERCEPTORS,
       useClass: RetryInterceptor,
@@ -28,6 +28,6 @@ export const appConfig: ApplicationConfig = {
         duration: 2500,
         verticalPosition: 'top'
       }
-    }
+    }, provideAnimationsAsync()
   ],
 };
