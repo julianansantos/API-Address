@@ -1,0 +1,13 @@
+<div class="mat-elevation-z8">
+  <div class="popular">
+    <h2>Comunidades populares</h2>
+    <ul>
+        <li *ngFor="let community of mostPopularCommunities">
+            <mat-icon fontIcon="star" color="primary"></mat-icon>
+            <span>
+                {{community.name}}
+            </span>
+        </li>
+    </ul>
+</div>
+</div>

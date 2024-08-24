@@ -79,20 +79,6 @@
   padding: 20px;
 }
 
-.page-container {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  grid-gap: 16px;
-}
-
-.col-9 {
-  grid-column: span 9;
-}
-
-.col-3 {
-  grid-column: span 3;
-}
-
 li {
   list-style-type: none;
   display: flex;

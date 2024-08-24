@@ -6,30 +6,20 @@ import { Community } from '@app/interface/Address';
 import { NgFor } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { NavbarComponent } from "../navbar/navbar.component";
 
 @Component({
   selector: 'app-main',
   standalone: true,
-  imports: [RouterOutlet, NgFor, MatIcon, MatButtonModule],
+  imports: [RouterOutlet, NgFor, MatIcon, MatButtonModule, NavbarComponent],
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss'
 })
 export class MainComponent {
   mostPopularCommunities: Community[] = [];
-  subscription: any;
-  constructor(private authService: AuthService, private router: Router, private communityService: CommunityService) { 
+  constructor(private authService: AuthService, private router: Router) { 
   }
-  ngOnInit() {
-    this.findMostPopularCommunities();
-    this.subscription = this.router.events.subscribe((val) => {
-      if (val instanceof NavigationStart) {
-        this.findMostPopularCommunities();
-      }
-    });
-  }
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
+
   logout() {
     this.authService.logout();
   }
@@ -40,12 +30,6 @@ export class MainComponent {
 
   goRegisterAddress() {
     this.router.navigateByUrl('/address/new');
-  }
-
-  findMostPopularCommunities() {
-    this.communityService.findMostPopular().subscribe(response => {
-      this.mostPopularCommunities = response;
-    });
   }
 
 }

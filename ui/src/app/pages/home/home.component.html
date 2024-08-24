@@ -1,8 +1,4 @@
-<mat-table [dataSource]="pagination.content">
-
-    <!--- Note that these columns can be defined in any order.
-          The actual rendered columns are set as a property on the row definition" -->
-
+<table mat-table [dataSource]="pagination.content" color="primary">
     <!-- Position Column -->
     <ng-container matColumnDef="street">
         <mat-header-cell *matHeaderCellDef> Rua </mat-header-cell>
@@ -46,7 +42,7 @@
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
   <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-</mat-table>
+</table>
 <mat-paginator (page)="handlePageEvent($event)"
                [length]="pagination.totalElements"
                [pageSize]="pagination.pageSize"

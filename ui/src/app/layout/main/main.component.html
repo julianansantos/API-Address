@@ -1,26 +1,7 @@
-<div class="navbar">
-    <div class="nav-items">
-        <ul>
-            <li><a (click)="goHome()"> Início </a></li>
-            <li><a (click)="goRegisterAddress()"> Novo endereço </a></li>
-        </ul>
+<app-navbar>
+    <div class="main-content">
+        <div class="container-outlet">
+            <router-outlet></router-outlet>
+        </div>
     </div>
-    <button (click)="logout()" mat-button>Sair</button>
-</div>
-<div class="main-content page-container">
-    <div class="col-9">
-        <router-outlet></router-outlet>
-    </div>
-    <!-- List most popular communities -->
-    <aside class="col-3 popular">
-        <h2>Comunidades populares</h2>
-        <ul>
-            <li *ngFor="let community of mostPopularCommunities">
-                <mat-icon fontIcon="star" color="primary"></mat-icon>
-                <span>
-                    {{community.name}}
-                </span>
-            </li>
-        </ul>
-    </aside>
-</div>
+</app-navbar>
