@@ -1,7 +1,8 @@
 @use '@angular/material' as mat;
 
-@include mat.core();
+mat.$theme-ignore-duplication-warnings: true;
 
+@include mat.core();
 // Define a dark theme
 $dark-theme: mat.define-dark-theme((
  color: (
