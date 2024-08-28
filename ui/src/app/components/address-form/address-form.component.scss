@@ -1,30 +1,28 @@
-.field {
-    margin: 4px;
+.full-width {
+  width: 100%;
 }
 
-.form {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    padding: 16px;
+.shipping-card {
+  min-width: 120px;
+  margin: 20px auto;
 }
 
-.button-container {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    width: 100%;
+.mat-radio-button {
+  display: block;
+  margin: 5px 0;
 }
-.button {
-    min-width: 200px;
+
+.row {
+  display: flex;
+  flex-direction: row;
+  overflow: auto;
 }
-@media screen and (max-width: 600px) {
-    .form {
-        flex-direction: column;
-    }
-    .button {
-        margin: 4px 0px;
-        width: 100%;
-        min-width: auto;
-    }
+
+.col {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.col:last-child {
+  margin-right: 0;
 }

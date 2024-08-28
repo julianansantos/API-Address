@@ -13,6 +13,8 @@ import { BrasilAPIService } from '@app/services/brasil-api.service';
 import { City, State } from '@app/interface/BrasilAPI';
 import { Community } from '@app/interface/Address';
 import { CommunityService } from '@app/services/community.service';
+import { MatCardModule } from '@angular/material/card';
+import { MatRadioModule } from '@angular/material/radio';
 
 @Component({
   selector: 'app-address-form',
@@ -24,7 +26,8 @@ import { CommunityService } from '@app/services/community.service';
     MatInputModule,
     MatFormFieldModule,
     MatSelectModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatCardModule,
   ],
   templateUrl: './address-form.component.html',
   styleUrl: './address-form.component.scss'

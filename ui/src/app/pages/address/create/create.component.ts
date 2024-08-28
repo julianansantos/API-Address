@@ -4,15 +4,15 @@ import { MatButtonModule } from '@angular/material/button';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { AddressForm } from '../../../interface/AddressForm';
+import { AddressForm } from '@app/interface/AddressForm';
 import { Router } from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { catchError, throwError } from 'rxjs';
-import { AddressFormComponent } from '../../../components/address-form/address-form.component';
-import { AddressService } from '../../../services/address.service';
+import { AddressFormComponent } from '@app/components/address-form/address-form.component';
+import { AddressService } from '@app/services/address.service';
 import { MatDialog } from '@angular/material/dialog';
-import { ConfirmationDialogComponent } from '../../../components/confirmation-dialog/confirmation-dialog.component';
+import { ConfirmationDialogComponent } from '@app/components/confirmation-dialog/confirmation-dialog.component';
 @Component({
   selector: 'app-create',
   standalone: true,
