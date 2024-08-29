@@ -1,14 +1,15 @@
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
-import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { Component, EventEmitter, inject, input, Input, Output } from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 import {MatDividerModule} from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 @Component({
   selector: 'app-default-login-layout',
   standalone: true,
   imports: [
-    MatButtonModule, MatDividerModule, MatIconModule
+    MatButtonModule, MatDividerModule, MatIconModule, MatProgressBarModule
   ],
   templateUrl: './default-login-layout.component.html',
   styleUrl: './default-login-layout.component.scss'
@@ -19,6 +20,8 @@ export class DefaultLoginLayoutComponent {
   @Input() primaryBtnText: string = "";
   @Input() secondaryBtnText: string = "";
   @Input() disablePrimaryBtn: boolean = true;
+  @Input() isLoading: boolean = false;
+  @Output() isLoadingChange = new EventEmitter<number>();
   @Output("submit") onSubmit = new EventEmitter();
 
   @Output("navigate") onNavigate = new EventEmitter();

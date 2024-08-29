@@ -11,7 +11,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../../../components/confirmation-dialog/confirmation-dialog.component';
-import { DefaultLoginLayoutComponent } from '@app/components/default-login-layout/default-login-layout.component';
+import { DefaultLoginLayoutComponent } from '@app/layout/default-login/default-login-layout.component';
 
 @Component({
   selector: 'app-create',

@@ -3,12 +3,16 @@
     <img src="/assets/svg/logo.svg"/>
     <ng-content></ng-content>
     <div class="btn-wrapper">
+        @if (isLoading) {
+          <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+        }
         <button mat-flat-button color="primary" class="w-100"
           (click)="submit()"
+          [disabled]="isLoading"
         >
           {{ primaryBtnText }}</button>
         <span>ou</span>
-        <button mat-button color="accent" class="w-100" (click)="navigate()">{{ secondaryBtnText }}</button>
+        <button mat-button color="accent" class="w-100" (click)="navigate()" [disabled]="isLoading">{{ secondaryBtnText }}</button>
     </div>
   </section>
   <section class="main-section" [style]="!showSVG ? 'display: none' : ''">
