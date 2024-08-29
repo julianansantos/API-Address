@@ -3,11 +3,11 @@ import { Component, Input, numberAttribute } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { catchError, firstValueFrom, throwError } from 'rxjs';
-import { AddressForm } from '../../../interface/AddressForm';
-import { AddressFormComponent } from '../../../components/address-form/address-form.component';
-import { AddressService } from '../../../services/address.service';
+import { AddressForm } from '@app/interface/AddressForm';
+import { AddressFormComponent } from '@app/components/address-form/address-form.component';
+import { AddressService } from '@app/services/address.service';
 import { MatDialog } from '@angular/material/dialog';
-import { ConfirmationDialogComponent } from '../../../components/confirmation-dialog/confirmation-dialog.component';
+import { ConfirmationDialogComponent } from '@app/components/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-edit',

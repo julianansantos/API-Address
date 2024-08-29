@@ -1,59 +1,83 @@
 <form class="form mat-elevation-z8">
-    <mat-form-field class="field">
-        <mat-label>CEP</mat-label>
-        <input matInput #postalCode maxlength="12" placeholder="Ex. 00000-000" [(ngModel)]="address.zipCode"
-            name="zipCode" (blur)="findViaCEP()" mask="00000-000">
-    </mat-form-field>
-    
-    <mat-form-field class="field">
-        <mat-label>Rua*</mat-label>
-        <input matInput required value="Google" placeholder="Ex. Av. Paulista nº 100" [(ngModel)]="address.street" name="street">
-    </mat-form-field>
-    
-    <mat-form-field class="field">
-        <mat-label>Número</mat-label>
-        <input matInput placeholder="Ex. 100" [(ngModel)]="address.number" name="number">
-    </mat-form-field>
+  <mat-card class="shipping-card">
+    <mat-card-content>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-label>CEP</mat-label>
+            <input matInput #postalCode maxlength="12" placeholder="Ex. 00000-000" [(ngModel)]="address.zipCode"
+                name="zipCode" (blur)="findViaCEP()" mask="00000-000">
+          </mat-form-field>
+        </div>
+      </div>
 
-    <mat-form-field class="field">
-        <mat-label>Estado*</mat-label>
-        <mat-select matNativeControl required [(ngModel)]="selectedState" [(value)]="selectedState" name="state" placeholder="Ex. Bahia" (selectionChange)="changeState()">
-            @for (state of states; track state) {
-                <mat-option [value]="state">{{state.nome}}</mat-option>
-            }
-        </mat-select>
-    </mat-form-field>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+              <mat-label>Rua*</mat-label>
+              <input matInput required value="Google" placeholder="Ex. Av. Paulista nº 100" [(ngModel)]="address.street" name="street">
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-label>Número</mat-label>
+            <input matInput placeholder="Ex. 100" [(ngModel)]="address.number" name="number">
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-label>Complemento</mat-label>
+            <input matInput placeholder="Ex. Bloco 1, Apto 101" [(ngModel)]="address.complement" name="complement">
+          </mat-form-field>
+        </div>
+      </div>
 
-    <mat-form-field class="field">
-        <mat-label>Cidade*</mat-label>
-        <mat-select matNativeControl required [(ngModel)]="address.city" [(value)]="address.city" name="city" placeholder="Ex. São Paulo">
-            @for (city of cities; track city) {
-                <mat-option [value]="city.nome">{{city.nome}}</mat-option>
-            }
-        </mat-select>
-    </mat-form-field>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-label>Estado*</mat-label>
+            <mat-select matNativeControl required [(ngModel)]="selectedState" [(value)]="selectedState" name="state" placeholder="Ex. Bahia" (selectionChange)="changeState()">
+                @for (state of states; track state) {
+                    <mat-option [value]="state">{{state.nome}}</mat-option>
+                }
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-label>Cidade*</mat-label>
+            <mat-select matNativeControl required [(ngModel)]="address.city" [(value)]="address.city" name="city" placeholder="Ex. São Paulo">
+                @for (city of cities; track city) {
+                    <mat-option [value]="city.nome">{{city.nome}}</mat-option>
+                }
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-label>País*</mat-label>
+            <input matInput required placeholder="Ex. Brasil" [(ngModel)]="address.country" name="country">
+          </mat-form-field>
+        </div>
+      </div>
 
-    <mat-form-field class="field">
-        <mat-label>País*</mat-label>
-        <input matInput required placeholder="Ex. Brasil" [(ngModel)]="address.country" name="country">
-    </mat-form-field>
-    
-    <mat-form-field class="field">
-        <mat-label>Complemento</mat-label>
-        <input matInput placeholder="Ex. Bloco 1, Apto 101" [(ngModel)]="address.complement" name="complement">
-    </mat-form-field>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-label>Comunidades</mat-label>
+            <mat-select matNativeControl multiple [(ngModel)]="address.communitiesIds" [(value)]="address.communitiesIds" name="state" placeholder="Ex. Corrida Feira">
+                @for (community of communities; track community) {
+                    <mat-option [value]="community.id">{{community.name}}</mat-option>
+                }
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
 
-    <mat-form-field class="field">
-        <mat-label>Comunidades</mat-label>
-        <mat-select matNativeControl multiple [(ngModel)]="address.communitiesIds" [(value)]="address.communitiesIds" name="state" placeholder="Ex. Corrida Feira">
-            @for (community of communities; track community) {
-                <mat-option [value]="community.id">{{community.name}}</mat-option>
-            }
-        </mat-select>
-    </mat-form-field>
-
-    <div class="button-container">
-        <button mat-stroked-button color="accent" class="register-button button" (click)="goHome()" type="reset">Cancelar</button>
-        <button mat-flat-button color="primary" class="login-button button" type="submit">Salvar</button>
-    </div>
+      <mat-card-actions>
+          <button mat-stroked-button color="accent" class="button" (click)="goHome()" type="reset">Cancelar</button>
+          <button mat-flat-button color="primary" class="button" type="submit">Salvar</button>
+      </mat-card-actions>
+    </mat-card-content>
+  </mat-card>
 </form>
