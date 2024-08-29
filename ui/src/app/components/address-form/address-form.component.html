@@ -2,7 +2,7 @@
     <mat-form-field class="field">
         <mat-label>CEP</mat-label>
         <input matInput #postalCode maxlength="12" placeholder="Ex. 00000-000" [(ngModel)]="address.zipCode"
-            name="zipCode" (blur)="findViaCEP()">
+            name="zipCode" (blur)="findViaCEP()" mask="00000-000">
     </mat-form-field>
     
     <mat-form-field class="field">

@@ -13,6 +13,7 @@ import { BrasilAPIService } from '@app/services/brasil-api.service';
 import { City, State } from '@app/interface/BrasilAPI';
 import { Community } from '@app/interface/Address';
 import { CommunityService } from '@app/services/community.service';
+import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 
 @Component({
   selector: 'app-address-form',
@@ -24,10 +25,14 @@ import { CommunityService } from '@app/services/community.service';
     MatInputModule,
     MatFormFieldModule,
     MatSelectModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxMaskDirective
   ],
   templateUrl: './address-form.component.html',
-  styleUrl: './address-form.component.scss'
+  styleUrl: './address-form.component.scss',
+  providers: [
+    provideNgxMask()
+  ]
 })
 export class AddressFormComponent {
 

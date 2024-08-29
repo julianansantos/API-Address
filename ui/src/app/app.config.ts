@@ -8,11 +8,13 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { RetryInterceptor } from './interceptors/RetryInterceptor';
 import { AuthInterceptor } from './interceptors/AuthInterceptor';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
+import { provideEnvironmentNgxMask } from 'ngx-mask';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes, withComponentInputBinding()),
     importProvidersFrom(HttpClientModule),
+    provideEnvironmentNgxMask(),
     {
       provide: HTTP_INTERCEPTORS,
       useClass: RetryInterceptor,
