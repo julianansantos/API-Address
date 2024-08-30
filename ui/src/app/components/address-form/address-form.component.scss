@@ -1,3 +1,22 @@
+@use '@angular/material' as mat;
+@use 'src/styles/main.scss' as *;
+
+.themed-button {
+  background-color: mat.get-theme-color($dark-theme, accent);
+  font: mat.get-theme-typography($dark-theme, body-2);
+  &:hover {
+    background-color: mat.get-theme-color($dark-theme, warn, 200);
+  }
+
+  @media (prefers-color-scheme: light) {
+    background-color: mat.get-theme-color($light-theme, accent);
+
+    &:hover {
+      background-color: mat.get-theme-color($light-theme, warn, 200);
+    }
+  }
+}
+
 .full-width {
   width: 100%;
 }
