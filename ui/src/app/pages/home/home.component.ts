@@ -13,6 +13,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AddressService } from '@app/services/address.service';
 import { CommunityService } from '@app/services/community.service';
+import { MatCardModule } from '@angular/material/card';
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -21,7 +22,9 @@ import { CommunityService } from '@app/services/community.service';
     MatButtonModule,
     MatPaginatorModule,
     JsonPipe,
-    NgFor],
+    MatCardModule,
+    NgFor
+  ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
