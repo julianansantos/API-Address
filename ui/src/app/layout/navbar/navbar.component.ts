@@ -9,7 +9,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { AuthService } from '@app/services/auth.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -26,7 +25,7 @@ import { Router } from '@angular/router';
   ]
 })
 export class NavbarComponent {
-  constructor(private authService: AuthService) { 
+  constructor(private authService: AuthService) {
   }
   private breakpointObserver = inject(BreakpointObserver);
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
