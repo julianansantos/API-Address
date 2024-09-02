@@ -2,18 +2,11 @@
 @use 'src/styles/main.scss' as *;
 
 .themed-button {
-  background-color: mat.get-theme-color($dark-theme, accent);
-  font: mat.get-theme-typography($dark-theme, body-2);
+  background-color: mat.get-theme-color($dark-theme, secondary);
+  font: mat.get-theme-typography($dark-theme, body-medium);
+  color: mat.get-theme-color($dark-theme, scrim);
   &:hover {
-    background-color: mat.get-theme-color($dark-theme, warn, 200);
-  }
-
-  @media (prefers-color-scheme: light) {
-    background-color: mat.get-theme-color($light-theme, accent);
-
-    &:hover {
-      background-color: mat.get-theme-color($light-theme, warn, 200);
-    }
+    background-color: mat.get-theme-color($dark-theme, secondary, 100);
   }
 }
 

@@ -1,28 +1,13 @@
 @use '@angular/material' as mat;
-
+@use './m3-theme.scss';
 // mat.$theme-ignore-duplication-warnings: true;
 
 @include mat.core();
 // Define a dark theme
-$dark-theme: mat.m2-define-dark-theme((
- color: (
-   primary: mat.m2-define-palette(mat.$m2-pink-palette),
-   accent: mat.m2-define-palette(mat.$m2-blue-grey-palette),
- ),
-  // Only include `typography` and `density` in the default dark theme.
-  typography: mat.m2-define-typography-config(
-    $font-family: 'Inter',
-  ),
-));
+$dark-theme: m3-theme.$dark-theme;
 
 // Define a light theme
-$light-theme: mat.m2-define-light-theme((
- color: (
-   primary: mat.m2-define-palette(mat.$m2-indigo-palette),
-   accent: mat.m2-define-palette(mat.$m2-pink-palette),
-
- ),
-));
+$light-theme: m3-theme.$light-theme;
 
 html {
   @include mat.all-component-themes($dark-theme);

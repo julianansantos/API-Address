@@ -1,3 +1,6 @@
+@use '@angular/material' as mat;
+@use 'src/styles/main.scss' as *;
+
 .sidenav-container {
   height: 100%;
 }
@@ -23,4 +26,8 @@
 .center {
   display: flex;
   align-items: center;
+}
+
+.menu {
+  color: mat.get-theme-color($light-theme, surface);
 }
