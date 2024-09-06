@@ -7,13 +7,15 @@ import { Address, Community } from '@app/interface/Address';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { PageEvent, MatPaginatorModule } from '@angular/material/paginator';
-import { JsonPipe, NgFor } from '@angular/common';
+import { JsonPipe, NgFor, NgIf } from '@angular/common';
 import { catchError, throwError } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AddressService } from '@app/services/address.service';
 import { CommunityService } from '@app/services/community.service';
 import { MatCardModule } from '@angular/material/card';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -23,7 +25,9 @@ import { MatCardModule } from '@angular/material/card';
     MatPaginatorModule,
     JsonPipe,
     MatCardModule,
-    NgFor
+    MatProgressSpinnerModule,
+    NgFor,
+    NgIf
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
@@ -40,6 +44,7 @@ export class HomeComponent {
     totalPages: 0
   };
   mostPopularCommunities: Community[] = [];
+  loading: boolean = false;
   constructor(private addressService: AddressService,
     private router: Router,
     private _snackBar: MatSnackBar,
@@ -55,14 +60,21 @@ export class HomeComponent {
   }
 
   paginate() {
-    this.addressService.paginate(this.pagination.page).subscribe(response => {
-      this.pagination.content = response.content;
-      this.pagination.totalElements = response.totalElements;
-      this.pagination.totalPages = response.totalPages;
-      this.pagination.pageSize = response.pageSize;
-      this.pagination.page = response.page;
-
-    });
+    this.loading = true;
+    setTimeout(()=>{
+      this.addressService.paginate(this.pagination.page).subscribe(response => {
+        this.pagination.content = response.content;
+        this.pagination.totalElements = response.totalElements;
+        this.pagination.totalPages = response.totalPages;
+        this.pagination.pageSize = response.pageSize;
+        this.pagination.page = response.page;
+        this.loading = false;
+      }, error => {
+        this.loading = false; // Conclui o carregamento em caso de erro
+        this._snackBar.open('Erro ao carregar os dados', 'Fechar');
+        console.error('Erro:', error);
+      });
+    }, 1000) 
   }
 
 
