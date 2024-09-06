@@ -1,0 +1,27 @@
+<h3>Nova comunidade</h3>
+<form class="form" (submit)="create()">
+  <mat-card class="shipping-card mat-elevation-z1">
+    <mat-card-content>
+     
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width">
+              <mat-label>Nome</mat-label>
+                <input matInput required value="Google" placeholder="Ex. Rio Vermelho" [(ngModel)]="community.name" name="name">
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field class="full-width">
+            <mat-label>Descrição</mat-label>
+            <input matInput placeholder="Ex. 100" [(ngModel)]="community.description" name="description">
+        </mat-form-field>
+        </div>
+      </div>
+
+      <mat-card-actions>
+          <button mat-stroked-button class="button themed-button" (click)="goHome()" type="reset">Cancelar</button>
+          <button mat-flat-button color="primary" class="button" type="submit">Salvar</button>
+      </mat-card-actions>
+    </mat-card-content>
+  </mat-card>
+</form>

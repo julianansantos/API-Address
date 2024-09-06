@@ -1,0 +1,39 @@
+@use '@angular/material' as mat;
+@use 'src/styles/main.scss' as *;
+
+.themed-button {
+  background-color: mat.get-theme-color($dark-theme, secondary);
+  font: mat.get-theme-typography($dark-theme, body-medium);
+  color: mat.get-theme-color($dark-theme, scrim);
+  &:hover {
+    background-color: mat.get-theme-color($dark-theme, secondary, 100);
+  }
+}
+
+.full-width {
+  width: 100%;
+}
+
+.button {
+  margin: 4px;
+}
+
+.mat-radio-button {
+  display: block;
+  margin: 5px 0;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  overflow: auto;
+}
+
+.col {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.col:last-child {
+  margin-right: 0;
+}

@@ -6,6 +6,7 @@ import { CreateComponent } from './pages/address/create/create.component';
 import { EditComponent } from './pages/address/edit/edit.component';
 import { CreateComponent as RegisterComponent } from './pages/auth/create/create.component';
 import { TopCommunitiesComponent } from './pages/top-communities/top-communities.component';
+import { CommunityComponent } from './pages/community/community.component';
 export const routes: Routes = [
     {
         path: '',
@@ -39,6 +40,11 @@ export const routes: Routes = [
             {
                 path: 'community',
                 component: TopCommunitiesComponent
+            },
+            {
+                path: 'community/new',
+                component: CommunityComponent
+
             }
         ]
     }

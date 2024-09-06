@@ -11,10 +11,10 @@ import { Router } from '@angular/router';
 import { MatSelectModule } from '@angular/material/select';
 import { BrasilAPIService } from '@app/services/brasil-api.service';
 import { City, State } from '@app/interface/BrasilAPI';
-import { Community } from '@app/interface/Address';
 import { CommunityService } from '@app/services/community.service';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 import { MatCardModule } from '@angular/material/card';
+import { Community } from '@app/interface/Community';
 @Component({
   selector: 'app-address-form',
   standalone: true,
