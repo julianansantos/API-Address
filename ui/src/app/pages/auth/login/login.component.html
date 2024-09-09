@@ -7,8 +7,8 @@
   [(isLoading)]="loading"
 >
 
-<form class="login-form">
-    <mat-form-field class="w-100">
+<div class="login-form">
+  <mat-form-field class="w-100">
         <mat-label>Usuário</mat-label>
         <input matInput placeholder="Username" name="username"
             [(ngModel)]="loginObject.username" required>
@@ -22,7 +22,7 @@
             <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>
     </mat-form-field>
-</form>
+  </div>
 
 </app-default-login-layout>
 

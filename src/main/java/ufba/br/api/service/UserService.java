@@ -17,11 +17,16 @@ public class UserService {
     private PasswordEncoder passwordEncoder;
 
     public User store(UserForm entity) {
-        User newUser = new User();
-        newUser.setName(entity.name());
-        newUser.setPassword(passwordEncoder.encode(entity.password()));
-        userRepository.save(newUser);
+        User newUser;
+        if (entity.role() != null) {
+            newUser = new User(entity.name(), passwordEncoder.encode(entity.password()), entity.role());
+        } else {
+            newUser = new User(entity.name(), passwordEncoder.encode(entity.password()));
+        }
         userRepository.save(newUser);
         return newUser;
+    }
+      public boolean userExists(String name) {
+        return userRepository.findByName(name) != null;
     }
 }

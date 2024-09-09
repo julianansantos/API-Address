@@ -20,8 +20,15 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
+@Table
+@Getter
+@Setter
+
+
 public class User implements UserDetails {
 
     @Id
@@ -42,51 +49,23 @@ public class User implements UserDetails {
     @JsonIgnore
     private List<Address> addresses;
 
-    private UserRole role;
-
     @OneToMany(mappedBy = "owner")
     @JsonIgnore
     private List<Community> myCommunities;
 
-    public List<Community> getMyCommunities() {
-        return myCommunities;
-    }
+    private UserRole role = UserRole.USER;
 
-    public void setMyCommunities(List<Community> myCommunities) {
-        this.myCommunities = myCommunities;
-    }
+    public User(){}
 
-
-    public List<Address> getAddresses() {
-        return addresses;
-    }
-
-    public void setAddresses(List<Address> addresses) {
-        this.addresses = addresses;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
+    public User(String name, String password) {
         this.name = name;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
         this.password = password;
+    }
+
+    public User(String name, String password, UserRole role) {
+        this.name = name;
+        this.password = password;
+        this.role = role;
     }
 
     @JsonIgnore

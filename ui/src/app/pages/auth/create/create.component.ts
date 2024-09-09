@@ -9,9 +9,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../../../components/confirmation-dialog/confirmation-dialog.component';
 import { DefaultLoginLayoutComponent } from '@app/layout/default-login/default-login-layout.component';
+import { CommonModule } from '@angular/common';
+import { UserForm } from '@app/interface/UserForm';
+
 
 @Component({
   selector: 'app-create',
@@ -19,36 +23,52 @@ import { DefaultLoginLayoutComponent } from '@app/layout/default-login/default-l
   imports: [
     FormsModule,
     MatButtonModule,
-    MatButtonModule,
     MatInputModule,
     MatFormFieldModule,
     MatIconModule,
-    DefaultLoginLayoutComponent
+    MatSelectModule,
+    DefaultLoginLayoutComponent,
+    CommonModule
   ],
   templateUrl: './create.component.html',
-  styleUrl: './create.component.scss'
+  styleUrls: ['./create.component.scss']
 })
 export class CreateComponent {
-  loginObject = {
+  user: UserForm = {
+    name: '',
     username: '',
     password: '',
-    passwordConfirm: ''
+    passwordConfirm: '',
+    role: ''
   };
-  constructor(private router: Router, public dialog: MatDialog, private _snackBar: MatSnackBar, private authService: AuthService) { }
+
+  userRoles: string[] = ['ADMIN', 'USER'];
+  selectedRole: string = '';
+
+  constructor(
+    private router: Router,
+    public dialog: MatDialog,
+    private _snackBar: MatSnackBar,
+    private authService: AuthService
+  ) {}
 
   register() {
-    this.authService.register(this.loginObject.username, this.loginObject.password)
+    this.authService.register(this.user.username, this.user.password, this.user.role)
       .pipe(catchError((errorResponse: HttpErrorResponse) => {
-        this._snackBar.open(errorResponse.error?.errors ? errorResponse.error?.errors[0]?.defaultMessage : 'Não foi possível registrar esse usuário', 'Fechar');
+        this._snackBar.open(
+          errorResponse.error?.errors ? errorResponse.error?.errors[0]?.defaultMessage : 'Não foi possível registrar esse usuário',
+          'Fechar'
+        );
         return throwError(() => errorResponse);
-      })).subscribe(() => {
+      }))
+      .subscribe(() => {
         this._snackBar.open('Usuário registrado com sucesso', 'Fechar');
         this.goBack();
       });
   }
 
   submit() {
-    if (this.loginObject.password !== this.loginObject.passwordConfirm) {
+    if (this.user.password !== this.user.passwordConfirm) {
       this._snackBar.open('As senhas não conferem', 'Fechar');
       return;
     }
@@ -71,5 +91,9 @@ export class CreateComponent {
 
   goBack() {
     this.router.navigateByUrl('/login');
+  }
+
+  trackByRole(role: string): string {
+    return role;
   }
 }

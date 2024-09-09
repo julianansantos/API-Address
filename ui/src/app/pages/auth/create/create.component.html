@@ -7,23 +7,31 @@
   (submit)="submit()"
 >
 
-<form class="form">
-    <mat-form-field class="w-100">
+<div class="form">
+  <mat-form-field class="w-100">
         <mat-label>Usuário</mat-label>
-        <input matInput placeholder="Username" name="username" [(ngModel)]="loginObject.username"
+        <input matInput placeholder="Username" name="username" [(ngModel)]="user.username"
             required>
     </mat-form-field>
     <mat-form-field class="w-100">
+      <mat-label>Tipo de Usuário</mat-label>
+      <mat-select matNativeControl [(ngModel)]="selectedRole" name="role" placeholder="Selecione a função">
+        <mat-option *ngFor="let role of userRoles" [value]="role">
+            {{role}}
+        </mat-option>
+    </mat-select>
+  </mat-form-field>
+    <mat-form-field class="w-100">
         <mat-label>Senha</mat-label>
         <input matInput type="password" placeholder="Password" name="password"
-            [(ngModel)]="loginObject.password" required minlength="8">
+            [(ngModel)]="user.password" required minlength="8">
     </mat-form-field>
     <mat-form-field class="w-100">
         <mat-label>Confirmar Senha</mat-label>
         <input matInput type="password" placeholder="Password" name="passwordConfirm"
-            [(ngModel)]="loginObject.passwordConfirm" required minlength="8">
+            [(ngModel)]="user.passwordConfirm" required minlength="8">
     </mat-form-field>
-</form>
+  </div>
 
 </app-default-login-layout>
 

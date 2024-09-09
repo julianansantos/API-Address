@@ -36,6 +36,10 @@ export class NavbarComponent {
       shareReplay()
     );
 
+  get user() {
+      return this.authService.getUser()
+    }
+
   logout() {
     this.authService.logout();
   }
