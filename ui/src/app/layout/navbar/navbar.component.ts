@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { AsyncPipe } from '@angular/common';
+import { AsyncPipe, CommonModule, NgIf } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -10,6 +10,10 @@ import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { AuthService } from '@app/services/auth.service';
 import { RouterLink } from '@angular/router';
+import { User } from '@app/interface/User';
+import {MatMenuModule} from '@angular/material/menu';
+
+
 
 @Component({
   selector: 'app-navbar',
@@ -23,7 +27,10 @@ import { RouterLink } from '@angular/router';
     MatListModule,
     MatIconModule,
     AsyncPipe,
-    RouterLink
+    RouterLink,
+    CommonModule,
+    NgIf,
+    MatMenuModule
   ]
 })
 export class NavbarComponent {
@@ -43,4 +50,9 @@ export class NavbarComponent {
   logout() {
     this.authService.logout();
   }
+
+  getUserAdmin() {
+    return (JSON.parse(localStorage.getItem('user') ?? '') as User)?.role == 'ADMIN';
+  }
+  
 }

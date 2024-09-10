@@ -15,7 +15,7 @@
     </mat-form-field>
     <mat-form-field class="w-100">
       <mat-label>Tipo de Usuário</mat-label>
-      <mat-select matNativeControl [(ngModel)]="selectedRole" name="role" placeholder="Selecione a função">
+      <mat-select matNativeControl [(ngModel)]="user.role" name="role" placeholder="Selecione a função">
         <mat-option *ngFor="let role of userRoles" [value]="role">
             {{role}}
         </mat-option>

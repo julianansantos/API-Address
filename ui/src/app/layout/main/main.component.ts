@@ -7,11 +7,21 @@ import { NgFor } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { NavbarComponent } from "../navbar/navbar.component";
+import { CommonModule } from '@angular/common'
+import { NgIf } from '@angular/common';
+
 
 @Component({
   selector: 'app-main',
   standalone: true,
-  imports: [RouterOutlet, NgFor, MatIcon, MatButtonModule, NavbarComponent],
+  imports: [
+    RouterOutlet, 
+    NgFor, 
+    MatIcon, 
+    MatButtonModule, 
+    NavbarComponent,
+    CommonModule,
+    NgIf],
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss'
 })

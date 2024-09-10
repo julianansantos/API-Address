@@ -8,9 +8,12 @@
     </mat-toolbar>
     <mat-nav-list>
       <a mat-list-item routerLink="home">Início</a>
-      <a mat-list-item routerLink="community">Top comunidades</a>
-      <a mat-list-item routerLink="community/new">Nova comunidade</a>
       <a mat-list-item routerLink="address/new">Novo endereço</a>
+      <button mat-button [matMenuTriggerFor]="menu">Comunidade</button>
+      <mat-menu #menu="matMenu">
+        <a mat-list-item routerLink="community">Top comunidades</a>
+        <a *ngIf="getUserAdmin()"mat-list-item routerLink="community/new">Nova comunidade</a>
+      </mat-menu>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -25,12 +28,6 @@
         </button>
       }
       <span class="spacer"></span>
-      <span class="mat-body-small">
-        Olá, {{ user.name }}
-        @if(user.role) {
-          ({{ user.role }})
-        }
-      </span>
       <button mat-button (click)="logout()">
         Sair
       </button>

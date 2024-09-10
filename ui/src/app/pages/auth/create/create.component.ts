@@ -93,7 +93,4 @@ export class CreateComponent {
     this.router.navigateByUrl('/login');
   }
 
-  trackByRole(role: string): string {
-    return role;
-  }
 }

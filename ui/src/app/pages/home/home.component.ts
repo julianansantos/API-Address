@@ -16,6 +16,7 @@ import { AddressService } from '@app/services/address.service';
 import { CommunityService } from '@app/services/community.service';
 import { MatCardModule } from '@angular/material/card';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { CommonModule } from '@angular/common'
 
 @Component({
   selector: 'app-home',
@@ -28,7 +29,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     MatCardModule,
     MatProgressSpinnerModule,
     NgFor,
-    NgIf
+    NgIf,
+    CommonModule
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'

@@ -3,10 +3,13 @@ package ufba.br.api.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,10 +19,9 @@ import ufba.br.api.dto.CommunityForm;
 import ufba.br.api.exceptions.UserNotAllowedException;
 import ufba.br.api.model.Community;
 import ufba.br.api.model.User;
-import ufba.br.api.service.CommunityService;
 import ufba.br.api.service.AuthorizationService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.GetMapping;
+import ufba.br.api.service.CommunityService;
+
 
 @RestController
 @RequestMapping("/community")
@@ -72,5 +74,18 @@ public class CommunityController {
         List<Community> communities = communityService.getTop3Communities();
         return ResponseEntity.ok(communities);
     }
+
+    @GetMapping("/communitiesWithMoreAddresses")
+    public ResponseEntity<List<Community>> indexMoreAddresses() {
+        List<Community> communities = communityService.findCommunitiesWithMoreAddresses(); 
+        return ResponseEntity.ok(communities);
+    }
+
+    @GetMapping("/CommunitiesByOwner")
+    public ResponseEntity<List<Community>> indexByOwner(@Param("ownerId") Long ownerId) {
+        List<Community> communities = communityService.findCommunitiesByOwner(ownerId); 
+        return ResponseEntity.ok(communities);
+    }
+    
     
 }

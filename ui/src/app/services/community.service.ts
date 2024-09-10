@@ -24,4 +24,9 @@ export class CommunityService {
   findMostPopular() {
     return this.httpClient.get<Community[]>('api/community/top');
   }
+
+  findCommunityMoreAddress(){
+    return this.httpClient.get<Community[]>('api/community/moreAddress')
+  }
+
 }

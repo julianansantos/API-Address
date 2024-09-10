@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 import { ConfirmationDialogComponent } from '@app/components/confirmation-dialog/confirmation-dialog.component';
 import { Community } from '@app/interface/Community';
 import { CommunityForm } from '@app/interface/CommunityForm';
+import { AuthService } from '@app/services/auth.service';
 import { CommunityService } from '@app/services/community.service';
 import { catchError, throwError } from 'rxjs';
 
@@ -37,7 +38,13 @@ export class CommunityComponent {
     description: ''
   }
   
-  constructor(public dialog: MatDialog, private router: Router, private communityService: CommunityService, private _snackBar: MatSnackBar) {}
+  constructor(
+    public dialog: MatDialog, 
+    private router: Router, 
+    private communityService: CommunityService, 
+    private _snackBar: MatSnackBar,
+    private authService: AuthService
+  ) {}
 
   goHome() {
     this.router.navigateByUrl('/home');
@@ -63,17 +70,32 @@ export class CommunityComponent {
   }
 
   create() {
-    this.communityService.create(this.community)
-      .pipe(catchError((errorResponse: HttpErrorResponse) => {
-        this._snackBar.open(errorResponse.error?.errors ? errorResponse.error?.errors[0]?.defaultMessage : 'Erro ao salvar comunidade', 'Fechar', {
+      const isAdmin = this.authService.getUserAdmin(); 
+      if (!isAdmin) {
+        this._snackBar.open('Você não tem permissão para criar uma comunidade', 'Fechar', {
           duration: 5000
         });
-        return throwError(() => errorResponse);
-      }))
-      .subscribe(() => {
-        this._snackBar.open('Comunidade criada com sucesso', 'Fechar')
-        this.goHome();
-      });
-  }
+        return;
+      }
+      this.communityService.create(this.community)
+        .pipe(
+          catchError((errorResponse: HttpErrorResponse) => {
+            this._snackBar.open(
+              errorResponse.error?.errors
+                ? errorResponse.error?.errors[0]?.defaultMessage
+                : 'Erro ao salvar comunidade',
+              'Fechar',
+              {
+                duration: 5000
+              }
+            );
+            return throwError(() => errorResponse);
+          })
+        )
+        .subscribe(() => {
+          this._snackBar.open('Comunidade criada com sucesso', 'Fechar');
+          this.goHome();
+        });
+    }
 
 }

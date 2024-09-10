@@ -27,7 +27,7 @@ export class AuthService {
   }
 
   register(name: string, password: string, role: string) {
-    return this.httpClient.post('api/register', { name, password });
+    return this.httpClient.post('api/register', { name, password, role});
   }
 
   me() {
@@ -52,4 +52,9 @@ export class AuthService {
   getUser() {
     return (JSON.parse(localStorage.getItem('user') ?? '') as User);
   }
+
+  getUserAdmin() {
+    return (JSON.parse(localStorage.getItem('user') ?? '') as User)?.role == 'ADMIN';
+  }
+
 }
