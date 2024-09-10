@@ -43,7 +43,6 @@ export class CreateComponent {
   };
 
   userRoles: string[] = ['ADMIN', 'USER'];
-  selectedRole: string = '';
 
   constructor(
     private router: Router,
@@ -82,9 +81,10 @@ export class CreateComponent {
     });
     confirm.afterClosed().subscribe(result => {
       if (result) {
+        confirm.close()
         this.register();
       } else {
-        this.goBack();
+        confirm.close()
       }
     });
   }

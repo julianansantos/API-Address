@@ -10,7 +10,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { ConfirmationDialogComponent } from '@app/components/confirmation-dialog/confirmation-dialog.component';
-import { Community } from '@app/interface/Community';
 import { CommunityForm } from '@app/interface/CommunityForm';
 import { AuthService } from '@app/services/auth.service';
 import { CommunityService } from '@app/services/community.service';
@@ -29,10 +28,10 @@ import { catchError, throwError } from 'rxjs';
     MatInputModule,
     MatFormFieldModule,
   ],
-  templateUrl: './community.component.html',
-  styleUrl: './community.component.scss'
+  templateUrl: './create.component.html',
+  styleUrl: './create.component.scss'
 })
-export class CommunityComponent {
+export class CreateComponent {
   community: CommunityForm = {
     name: '',
     description: ''

@@ -9,10 +9,11 @@
     <mat-nav-list>
       <a mat-list-item routerLink="home">Início</a>
       <a mat-list-item routerLink="address/new">Novo endereço</a>
-      <button mat-button [matMenuTriggerFor]="menu">Comunidade</button>
+      <a mat-list-item [matMenuTriggerFor]="menu">Comunidade</a>
       <mat-menu #menu="matMenu">
+        <a *ngIf="getUserAdmin()"mat-list-item routerLink="community/create/new">Nova comunidade</a>
+        <a mat-list-item routerLink="community/index">Comunidades</a>
         <a mat-list-item routerLink="community">Top comunidades</a>
-        <a *ngIf="getUserAdmin()"mat-list-item routerLink="community/new">Nova comunidade</a>
       </mat-menu>
     </mat-nav-list>
   </mat-sidenav>

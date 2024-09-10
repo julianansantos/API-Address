@@ -6,7 +6,8 @@ import { CreateComponent } from './pages/address/create/create.component';
 import { EditComponent } from './pages/address/edit/edit.component';
 import { CreateComponent as RegisterComponent } from './pages/auth/create/create.component';
 import { TopCommunitiesComponent } from './pages/top-communities/top-communities.component';
-import { CommunityComponent } from './pages/community/community.component';
+import { CreateComponent as CommunityComponent } from './pages/community/create/create.component';
+import { IndexComponent } from './pages/community/index/index.component';
 export const routes: Routes = [
     {
         path: '',
@@ -42,8 +43,13 @@ export const routes: Routes = [
                 component: TopCommunitiesComponent
             },
             {
-                path: 'community/new',
+                path: 'community/create/new',
                 component: CommunityComponent
+
+            },
+            {
+                path: 'community/index',
+                component: IndexComponent
 
             }
         ]
