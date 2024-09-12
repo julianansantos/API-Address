@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { Router } from '@angular/router';
@@ -18,13 +19,14 @@ import { CommunityService } from '@app/services/community.service';
     MatTableModule,
     MatPaginatorModule,
     CommonModule,
-    MatIconModule    
+    MatIconModule,
+    MatProgressSpinnerModule    
   ],
   templateUrl: './index.component.html',
   styleUrl: './index.component.scss'
 })
 export class IndexComponent {
-  displayedColumns: string[] = ['name', 'description'];
+  displayedColumns: string[] = ['name', 'description', 'actions'];
   pagination: Pagination<Community> = {
     content: [],
     lastPage: 0,
@@ -33,6 +35,7 @@ export class IndexComponent {
     totalElements: 0,
     totalPages: 0
   };
+  mostPopularCommunities: Community[] = [];
   loading: boolean = false;
   constructor(private communityService: CommunityService,
     private router: Router,

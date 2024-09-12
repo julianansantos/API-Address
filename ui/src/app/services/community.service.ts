@@ -17,6 +17,9 @@ export class CommunityService {
     return this.httpClient.post('api/community', community)
   }
 
+  get(id:number){
+    return this.httpClient.get<Community>(`api/community/${id}`)
+  }
 
   findAll() {
     return this.httpClient.get<Community[]>('api/community');

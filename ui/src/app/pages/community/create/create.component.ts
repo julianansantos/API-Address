@@ -31,6 +31,7 @@ import { catchError, throwError } from 'rxjs';
   templateUrl: './create.component.html',
   styleUrl: './create.component.scss'
 })
+
 export class CreateComponent {
   community: CommunityForm = {
     name: '',
@@ -45,8 +46,8 @@ export class CreateComponent {
     private authService: AuthService
   ) {}
 
-  goHome() {
-    this.router.navigateByUrl('/home');
+  goCommunity() {
+    this.router.navigateByUrl('community/index');
   }
 
 
@@ -63,7 +64,7 @@ export class CreateComponent {
       if (result) {
         this.create();
       } else {
-        this.goHome();
+        this.goCommunity();
       }
     });
   }
@@ -93,7 +94,7 @@ export class CreateComponent {
         )
         .subscribe(() => {
           this._snackBar.open('Comunidade criada com sucesso', 'Fechar');
-          this.goHome();
+          this.goCommunity();
         });
     }
 

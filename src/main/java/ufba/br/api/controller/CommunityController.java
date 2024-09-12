@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,10 +13,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
 import ufba.br.api.dto.CommunityForm;
+import ufba.br.api.dto.PaginationResponse;
 import ufba.br.api.exceptions.UserNotAllowedException;
 import ufba.br.api.model.Community;
 import ufba.br.api.model.User;
@@ -64,9 +67,14 @@ public class CommunityController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Community>> index() {
-        List<Community> communities = communityService.getCommunities();
-        return ResponseEntity.ok(communities);
+    public ResponseEntity<PaginationResponse<Community>> index(Authentication authentication,
+        @RequestParam(value = "page", defaultValue = "0", required = false) int page,
+        @RequestParam(value = "size", defaultValue = "5", required = false) int size) {
+            User user = (User) authorizationService.loadUserByUsername(authentication.getName());
+        if (!(user instanceof User)) {
+            throw new UserNotAllowedException();
+        }
+        return new ResponseEntity<>(communityService.getCommunities(user, page, size), HttpStatus.OK);
     }
     
     @GetMapping("/top")
