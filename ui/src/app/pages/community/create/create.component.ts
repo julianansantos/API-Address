@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { ConfirmationDialogComponent } from '@app/components/confirmation-dialog/confirmation-dialog.component';
@@ -27,6 +28,7 @@ import { catchError, throwError } from 'rxjs';
     FormsModule,
     MatInputModule,
     MatFormFieldModule,
+    MatPaginatorModule
   ],
   templateUrl: './create.component.html',
   styleUrl: './create.component.scss'
@@ -37,11 +39,11 @@ export class CreateComponent {
     name: '',
     description: ''
   }
-  
+
   constructor(
-    public dialog: MatDialog, 
-    private router: Router, 
-    private communityService: CommunityService, 
+    public dialog: MatDialog,
+    private router: Router,
+    private communityService: CommunityService,
     private _snackBar: MatSnackBar,
     private authService: AuthService
   ) {}
@@ -70,7 +72,7 @@ export class CreateComponent {
   }
 
   create() {
-      const isAdmin = this.authService.getUserAdmin(); 
+      const isAdmin = this.authService.getUserAdmin();
       if (!isAdmin) {
         this._snackBar.open('Você não tem permissão para criar uma comunidade', 'Fechar', {
           duration: 5000

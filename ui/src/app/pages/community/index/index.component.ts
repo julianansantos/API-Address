@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
@@ -20,7 +20,8 @@ import { CommunityService } from '@app/services/community.service';
     MatPaginatorModule,
     CommonModule,
     MatIconModule,
-    MatProgressSpinnerModule    
+    MatProgressSpinnerModule,
+    NgIf,
   ],
   templateUrl: './index.component.html',
   styleUrl: './index.component.scss'
@@ -66,7 +67,7 @@ export class IndexComponent {
         this._snackBar.open('Erro ao carregar os dados', 'Fechar');
         console.error('Erro:', error);
       });
-    }, 1000) 
+    }, 1000)
   }
 
 
