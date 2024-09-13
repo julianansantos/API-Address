@@ -37,9 +37,7 @@
           <mat-form-field class="full-width">
             <mat-label>Estado</mat-label>
             <mat-select matNativeControl required [(ngModel)]="selectedState" [(value)]="selectedState" name="state" placeholder="Ex. Bahia" (selectionChange)="changeState()">
-                @for (state of states; track state) {
-                    <mat-option [value]="state">{{state.nome}}</mat-option>
-                }
+                  <mat-option *ngFor="let state of states; track state" [value]="state">{{state.nome}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
@@ -47,9 +45,7 @@
           <mat-form-field class="full-width">
             <mat-label>Cidade</mat-label>
             <mat-select matNativeControl required [(ngModel)]="address.city" [(value)]="address.city" name="city" placeholder="Ex. São Paulo">
-                @for (city of cities; track city) {
-                    <mat-option [value]="city.nome">{{city.nome}}</mat-option>
-                }
+                    <mat-option *ngFor="let city of cities; track city" [value]="city.nome">{{city.nome}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
@@ -66,9 +62,7 @@
           <mat-form-field class="full-width">
             <mat-label>Comunidades</mat-label>
             <mat-select matNativeControl multiple [(ngModel)]="address.communitiesIds" [(value)]="address.communitiesIds" name="state" placeholder="Ex. Corrida Feira">
-                @for (community of communities; track community) {
-                    <mat-option [value]="community.id">{{community.name}}</mat-option>
-                }
+                    <mat-option *ngFor="let community of communities; track community" [value]="community.id">{{community.name}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>

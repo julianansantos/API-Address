@@ -15,6 +15,7 @@ import { CommunityService } from '@app/services/community.service';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 import { MatCardModule } from '@angular/material/card';
 import { Community } from '@app/interface/Community';
+import { CommonModule, NgFor } from '@angular/common';
 @Component({
   selector: 'app-address-form',
   standalone: true,
@@ -28,6 +29,8 @@ import { Community } from '@app/interface/Community';
     ReactiveFormsModule,
     NgxMaskDirective,
     MatCardModule,
+    NgFor,
+    CommonModule
   ],
   templateUrl: './address-form.component.html',
   styleUrl: './address-form.component.scss',

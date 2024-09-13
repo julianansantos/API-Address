@@ -1,43 +1,27 @@
 <h3>Nova comunidade</h3>
-<mat-card class="table-container mat-elevation-z1">
-  <div *ngIf="loading" class="spinner-container">
-      <mat-spinner></mat-spinner>
-    </div>
-  <div *ngIf="!loading">
-  <table mat-table [dataSource]="pagination.content" color="primary">
-      <!-- Position Column -->
-      <ng-container matColumnDef="name">
-          <mat-header-cell *matHeaderCellDef> Nome </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="number">
-          <mat-header-cell *matHeaderCellDef> Número </mat-header-cell>
-          <mat-cell *matCellDef="let element"> {{element.number}} </mat-cell>
-      </ng-container>
-      <ng-container matColumnDef="actions">
-          <mat-header-cell *matHeaderCellDef> Ações </mat-header-cell>
-          <mat-cell *matCellDef="let row">
-              <button mat-icon-button aria-label="Opção para editar endereço">
-                  <mat-icon color="primary">edit</mat-icon>
-              </button>
-              <button mat-icon-button aria-label="Opção para excluir endereço">
-                  <mat-icon color="warn">delete</mat-icon>
-              </button>
-          </mat-cell>
-      </ng-container>
+<form class="form" (submit)="create()">
+    <mat-card class="shipping-card mat-elevation-z1">
+      <mat-card-content>
+  
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="full-width">
+                <mat-label>Nome</mat-label>
+                  <input matInput required value="Google" placeholder="Ex. Rio Vermelho" [(ngModel)]="community.name" name="name">
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field class="full-width">
+              <mat-label>Descrição</mat-label>
+              <input matInput placeholder="Ex. 100" [(ngModel)]="community.description" name="description">
+          </mat-form-field>
+          </div>
+        </div>
 
-      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-  </table>
-  </div>
-<mat-paginator (page)="handlePageEvent($event)"
-               [length]="pagination.totalElements"
-               [pageSize]="pagination.pageSize"
-               [disabled]="false"
-               [showFirstLastButtons]="false"
-               [pageSizeOptions]="[]"
-               [hidePageSize]="true"
-               [pageIndex]="pagination.page">
-</mat-paginator>
-</mat-card>
-
+        <mat-card-actions>
+            <button mat-stroked-button class="button themed-button" (click)="goCommunity()" type="reset">Cancelar</button>
+            <button mat-flat-button color="primary" class="button" type="submit">Salvar</button>
+        </mat-card-actions>
+      </mat-card-content>
+    </mat-card>
+  </form>
